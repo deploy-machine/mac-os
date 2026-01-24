@@ -170,6 +170,13 @@ install_cask "crossover" "CrossOver"
 install_cask "league-of-legends" "League of Legends"
 install_cask "onedrive" "OneDrive"
 install_cask "zoom" "Zoom"
+# Remove conflicting cask if present
+print_status "Checking for conflicting unified-remote cask..."
+if brew list --cask | grep -q "unified-remote"; then
+    print_status "Removing conflicting unified-remote cask..."
+    brew uninstall --cask unified-remote
+fi
+
 # Install UniFi Portal from App Store (not available via Homebrew)
 print_status "Installing UniFi Portal from App Store..."
 if mas install 1057750338; then
