@@ -121,12 +121,27 @@ cmd-ctrl-q = 'exec-and-forget osascript -e "tell application \\"System Events\\"
 
 # === MONITOR CONTROLS AND ASSIGNMENTS ===
 # Monitor: 1 = Internal display, 2 = External monitor 1, 3 = External monitor 2, 4 = External monitor 3
+# When external monitors connected, workspaces distribute across them only
 
-# Workspace-to-monitor assignments
+# Workspace-to-monitor assignments (3 external monitors setup)
 'workspace-to-monitor' = [
-  { workspace = 2, monitor = 2 },  # Browser on first external monitor
-  { workspace = 4, monitor = 2 },  # Terminal on main screen (second external monitor)  
-  { workspace = 5, monitor = 4 },  # Discord on third external monitor
+  # External Monitor 1 (Left or primary external) - Browsing & Design
+  { workspace = 2, monitor = 2 },  # Safari (Browser)
+  { workspace = 9, monitor = 2 },  # Figma (Design)
+  { workspace = 10, monitor = 2 },  # System apps
+  
+  # External Monitor 2 (Center or main display) - Development 
+  { workspace = 3, monitor = 3 },  # Neovim (Editor)
+  { workspace = 4, monitor = 3 },  # iTerm2 (Terminal - Main)
+  
+  # External Monitor 3 (Right or secondary) - Communication & Productivity
+  { workspace = 5, monitor = 4 },  # Discord (Communication)
+  { workspace = 6, monitor = 4 },  # Zoom (Meetings)
+  { workspace = 7, monitor = 4 },  # Outlook (Email)
+  { workspace = 8, monitor = 4 },  # Obsidian (Productivity)
+  
+  # Internal display - File management only
+  { workspace = 1, monitor = 1 }   # Finder (File management)
 ]
 
 # Move workspaces between monitors

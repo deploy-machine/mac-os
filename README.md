@@ -78,17 +78,25 @@ chmod +x .install.sh
   - **`Super + -/+`**: Resize windows
   - **`Alt + S/D/E/W`**: Change layouts (vertical/horizontal/tall)
   
-**Automatic Workspace Assignment**:
-  - **Workspace 1**: Finder (Internal Display)
-  - **Workspace 2**: Safari (Browser) - **External Monitor 1**
-  - **Workspace 3**: Editors (Neovim)
-  - **Workspace 4**: Terminal (iTerm2) - **External Monitor 2 (Main Display)**
-  - **Workspace 5**: Communication (Discord) - **External Monitor 3**
-  - **Workspace 6**: Meetings (Zoom)
-  - **Workspace 7**: Email (Outlook)
-  - **Workspace 8**: Productivity (Obsidian)
-  - **Workspace 9**: Design (Figma)
+**Automatic Workspace Assignment** (3 External Monitors):
+  
+  **External Monitor 1** (Left/Primary):
+  - **Workspace 2**: Safari (Browser)
+  - **Workspace 9**: Figma (Design) 
   - **Workspace 10**: System apps
+  
+  **External Monitor 2** (Center/Main):
+  - **Workspace 3**: Neovim (Editor)
+  - **Workspace 4**: iTerm2 (Terminal - Primary)
+  
+  **External Monitor 3** (Right/Secondary):
+  - **Workspace 5**: Discord (Communication)
+  - **Workspace 6**: Zoom (Meetings)
+  - **Workspace 7**: Outlook (Email)
+  - **Workspace 8**: Obsidian (Productivity)
+  
+  **Internal Display**:
+  - **Workspace 1**: Finder (File Management)
 
 **Multi-Monitor Shortcuts**:
   - **`Super + Ctrl + 1-4`**: Move workspace to specific monitor
