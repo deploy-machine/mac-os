@@ -1,0 +1,8 @@
+# JankyBorders configuration
+# Place file contents in ~/.config/jankyborders/config
+
+active_color=0xff89b4fa
+inactive_color=0xff313244
+width=5.0
+style=round
+hidpi=on

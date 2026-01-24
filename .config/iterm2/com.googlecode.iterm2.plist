@@ -1,0 +1,38 @@
+# iTerm2 configuration
+# Place these settings in iTerm2 > Settings > Profiles > Default > General
+# Or import as a profile
+
+# Set shell to zsh
+[General]
+Command = /bin/zsh
+
+# Appearance
+[Appearance]
+Theme = Minimal
+Show tab bar even when there is only one tab = false
+
+# Window
+[Window]
+Style = Full Screen Bottom
+Screen = 0
+Space = All Spaces
+
+# Terminal
+[Terminal]
+Set locale variables automatically = false
+Scrollback Lines = 10000
+
+# Keys
+[Keys]
+Key Mappings = [
+  {
+    "Keyboard Shortcut": "⌘←",
+    "Action": "Send Escape Sequence",
+    "Text": "b"
+  },
+  {
+    "Keyboard Shortcut": "⌘→", 
+    "Action": "Send Escape Sequence",
+    "Text": "f"
+  }
+]

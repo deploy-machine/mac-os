@@ -1,0 +1,44 @@
+# Starship configuration
+# Place file contents in ~/.config/starship.toml
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " 🔒"
+
+[git_branch]
+symbol = "🌱 "
+truncation_length = 10
+
+[git_status]
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+untracked = "🤷‍♀️"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+[nodejs]
+symbol = "📦 "
+
+[python]
+symbol = "🐍 "
+
+[rust]
+symbol = "🦀 "
+
+[time]
+disabled = false
+format = '🕙[\[$time\]](bold blue) '
+
+[cmd_duration]
+min_time = 10_000  # Show command duration over 10 seconds
+format = '⏱️ [$duration](bold yellow) '
