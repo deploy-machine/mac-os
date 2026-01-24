@@ -103,7 +103,6 @@ brew install --cask \
     android-studio \
     microsoft-office \
     obsidian \
-    safari \
     figma \
     bitwarden \
     whatsapp \
@@ -113,6 +112,14 @@ brew install --cask \
     leagueoflegends \
     onedrive \
     zoom
+
+# Install UniFi Portal instead of Wireguard
+brew install --cask unifi-portal
+
+# Install Mac App Store Apps
+print_status "Installing Mac App Store Apps..."
+mas install 497799835 #xCode
+mas install 1480933944 #Vimari - Vim keybindings for Safari
 
 # Install Xcode Command Line Tools (already done at start)
 if ! xcode-select -p &> /dev/null; then
@@ -216,8 +223,15 @@ print_status "Starting services..."
 # Enable aerospace to launch at login
 brew services start aerospace
 
+# Configure Raycast with our keybindings
+print_status "Configuring Raycast with custom shortcuts..."
+if [ -f "$SCRIPT_DIR/scripts/configure-raycast.sh" ]; then
+    bash "$SCRIPT_DIR/scripts/configure-raycast.sh"
+else
+    print_warning "Raycast configuration script not found"
+fi
+
 # Note: sketchybar and jankyborders typically run via aerospace or manual launch
-# Raycast will need to be configured manually in System Settings
 
 # Install MilkOutside theme
 print_status "Installing MilkOutside theme..."

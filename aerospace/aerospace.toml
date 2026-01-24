@@ -1,0 +1,168 @@
+# AeroSpace configuration with Option key shortcuts
+# Place file contents in ~/.config/aerospace/aerospace.toml
+# After installing, run: aerospace reload-config
+
+# Gaps between windows
+[gaps]
+inner.horizontal = 4
+inner.vertical =   4
+outer.left =       4
+outer.top =        4
+outer.right =      4
+outer.bottom =     4
+
+# Main workspace configuration
+[main]
+binding-mode = 'work'
+gaps.outer.all = 4
+gaps.inner.horizontal = 4
+gaps.inner.vertical = 4
+
+# Floating windows (exceptions for dialogs, etc.)
+'floating' = [
+  { title = '.*Preferences.*' },
+  { title = '.*Settings.*' },
+  { title = '.*About.*' },
+  { app-id = 'com.apple.systempreferences' },
+  { app-id = 'com.apple.finder' },
+]
+
+# Auto-layout enable
+'auto-layout' = true
+
+# Window title appearance and startup commands
+[exec]
+inherit-env-vars = true
+after-startup-command = [
+  'exec-and-forget sketchybar',
+  'exec-and-forget borders active_color=0xff89b4fa inactive_color=0xff313244 width=3.0 style=round'
+]
+
+# === OPTION KEY SHORTCUTS FOR APP LAUNCHING ===
+# Option (Alt) for app launching (minimal conflicts)
+[mode.main.binding]
+
+# App launching with Option + Letter
+alt-b = 'exec-and-forget open -a Safari'                    # Browser
+alt-f = 'exec-and-forget open -a Finder'                   # Finder
+alt-t = 'exec-and-forget open -a iTerm2'                   # Terminal
+alt-n = 'exec-and-forget open -a Obsidian'                  # Notes
+alt-d = 'exec-and-forget open -a Figma'                     # Design
+alt-c = 'exec-and-forget open -a Discord'                    # Chat/Communication
+alt-z = 'exec-and-forget open -a Zoom'                      # Meetings
+alt-m = 'exec-and-forget open -a Outlook'                    # Mail/Email
+alt-s = 'exec-and-forget open -a Raycast'                   # Search/Launcher
+alt-r = 'exec-and-forget open -a Finder'                    # File Manager
+
+# === SYSTEM CONTROLS ===
+alt-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to keystroke \\"q\\" using command down"'  # Quit current app
+alt-enter = 'exec-and-forget open -a iTerm2'  # Open terminal
+
+# === WINDOW NAVIGATION (Super keys still available) ===
+cmd-h = 'focus left'
+cmd-j = 'focus down'
+cmd-k = 'focus up'
+cmd-l = 'focus right'
+
+# === WINDOW MOVEMENT ===
+cmd-shift-h = 'move left'
+cmd-shift-j = 'move down'
+cmd-shift-k = 'move up'
+cmd-shift-l = 'move right'
+
+# === WINDOW CONTROL ===
+cmd-w = 'close'
+cmd-f = 'fullscreen'
+cmd-shift-f = 'layout floating tiling'
+
+# === WORKSPACE NAVIGATION ===
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+cmd-6 = 'workspace 6'
+cmd-7 = 'workspace 7'
+cmd-8 = 'workspace 8'
+cmd-9 = 'workspace 9'
+cmd-0 = 'workspace 10'
+
+# === MOVE TO WORKSPACE ===
+cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+cmd-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+cmd-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+cmd-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
+
+# === WORKSPACE SWITCHING ===
+cmd-tab = 'workspace-back-and-forth'
+cmd-space = 'exec-and-forget open -a Raycast'
+
+# === LAYOUT MANAGEMENT ===
+alt-s = ['layout v_accordion', 'mode service']
+alt-d = ['layout h_accordion', 'mode service'] 
+alt-e = ['layout tiles horizontal vertical', 'mode service']
+alt-w = ['layout tall', 'mode service']
+
+# === WINDOW RESIZING ===
+cmd-minus = 'resize smart -50'
+cmd-equal = 'resize smart +50'
+cmd-shift-minus = 'resize width -50'
+cmd-shift-equal = 'resize width +50'
+
+# === SYSTEM CONTROLS ===
+cmd-ctrl-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen
+cmd-ctrl-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to restart"'
+
+# === MONITOR CONTROLS ===
+cmd-ctrl-1 = 'move-workspace-to-monitor 1'
+cmd-ctrl-2 = 'move-workspace-to-monitor 2'
+
+# Service mode bindings
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+q = ['mode main']
+
+# Application workspace assignments
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.neovide.neovide'
+run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.zoom.us'
+run = ['move-node-to-workspace 6']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.outlook'
+run = ['move-node-to-workspace 7']
+
+[[on-window-detected]]
+if.app-id = 'org.obsidian.md-obsidian'
+run = ['move-node-to-workspace 8']
+
+[[on-window-detected]]
+if.app-id = 'com.figma.Desktop'
+run = ['move-node-to-workspace 9']

@@ -44,8 +44,20 @@ chmod +x .install.sh
 
 ### AeroSpace (Window Manager) - Omarchy-inspired
 - **Config**: `~/.config/aerospace/aerospace.toml`
-- **Primary Modifier**: **Super (Cmd)** key (like Omarchy's Super key)
-- **Keybindings**: 
+- **App Launching**: **Option (Alt) + Letter** shortcuts
+  - **`Option + B`** → Safari (Browser)
+  - **`Option + F`** → Finder
+  - **`Option + T`** → iTerm2 (Terminal)  
+  - **`Option + N`** → Obsidian (Notes)
+  - **`Option + D`** → Figma (Design)
+  - **`Option + C`** → Discord (Chat)
+  - **`Option + Z`** → Zoom (Meetings)
+  - **`Option + M`** → Outlook (Mail)
+  - **`Option + S`** → Raycast (Launcher)
+  - **`Option + Q`** → Quit current app
+  - **`Option + Enter`** → Open terminal
+
+- **Window Management**: **Super (Cmd)** key (like Omarchy's Super key)
   - **`Super + H/J/K/L`**: Focus window left/down/up/right
   - **`Super + Shift + H/J/K/L`**: Move window left/down/up/right  
   - **`Super + 1-9/0`**: Switch to workspace 1-10
@@ -53,7 +65,6 @@ chmod +x .install.sh
   - **`Super + Tab`**: Switch to previous workspace
   - **`Super + W`**: Close current window
   - **`Super + F`**: Toggle fullscreen
-  - **`Super + T`**: Toggle floating mode
   - **`Super + Space`**: Open Raycast launcher
   - **`Super + -/+`**: Resize windows
   - **`Alt + S/D/E/W`**: Change layouts (vertical/horizontal/tall)
@@ -69,6 +80,17 @@ chmod +x .install.sh
   - **Workspace 8**: Productivity (Obsidian)
   - **Workspace 9**: Design (Figma)
   - **Workspace 10**: System apps
+
+### Raycast (App Launcher)
+- **Config**: `scripts/configure-raycast.sh` 
+- **Primary Hotkey**: **Option + S** (matches AeroSpace)
+- **Additional Shortcuts**:
+  - **Option + Shift + C** → Clipboard History
+  - **Option + Shift + S** → Snippets
+  - **Option + Shift + F** → File Search  
+  - **Option + Shift + =** → Calculator
+  - **⌘ + Space** → Alternative launcher
+- **Features**: Auto-start at login, pre-configured extensions, MilkOutside theme colors
 
 ### Finder
 - **Status Bar**: Shows current file path and disk space information
