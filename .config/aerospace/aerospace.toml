@@ -12,11 +12,6 @@ outer.right =      4
 outer.bottom =     4
 
 # Main workspace configuration
-[main]
-binding-mode = 'work'
-gaps.outer.all = 4
-gaps.inner.horizontal = 4
-gaps.inner.vertical = 4
 
 # Floating windows (exceptions for dialogs, etc.)
 'floating' = [
@@ -89,7 +84,7 @@ cmd-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 alt-s = ['layout v_accordion', 'mode service']
 alt-d = ['layout h_accordion', 'mode service'] 
 alt-e = ['layout tiles horizontal vertical', 'mode service']
-alt-w = ['layout tall', 'mode service']
+alt-w = ['layout tiles', 'mode service']
 
 # === WINDOW RESIZING ===
 cmd-minus = 'resize smart -50'
@@ -99,6 +94,18 @@ cmd-shift-equal = 'resize width +50'
 
 # === APPLICATION LAUNCHER (Super + Space like Omarchy) ===
 cmd-space = 'exec-and-forget open -a Raycast'
+
+# === APP LAUNCHING (Option + Letter shortcuts) ===
+alt-b = 'exec-and-forget open -a Safari'
+alt-f = 'exec-and-forget open -a Finder'
+alt-t = 'exec-and-forget open -a iTerm'
+alt-n = 'exec-and-forget open -a Obsidian'
+alt-d = 'exec-and-forget open -a Figma'
+alt-c = 'exec-and-forget open -a Discord'
+alt-z = 'exec-and-forget open -a "zoom.us"'
+alt-m = 'exec-and-forget open -a "Microsoft Outlook"'
+alt-s = 'exec-and-forget open -a Raycast'
+alt-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to keystroke \\"q\\" using command down"'
 
 # === SYSTEM CONTROLS ===
 cmd-ctrl-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen

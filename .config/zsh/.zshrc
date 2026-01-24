@@ -48,3 +48,5 @@ SAVEHIST=10000
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
+# Raycast Configuration
+export RAYCAST_CONFIG_DIR="/Users/simbaclaws/Library/Application Support/com.raycast.macos"

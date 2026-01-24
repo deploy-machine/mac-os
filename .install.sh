@@ -64,6 +64,7 @@ brew analytics off
 print_status "Adding Homebrew taps..."
 brew tap FelixKratz/formulae
 brew tap koekeishiya/formulae
+brew tap nikitabobko/tap
 
 # Install core packages
 print_status "Installing core packages..."
@@ -81,7 +82,7 @@ brew install \
 
 # Install window management tools
 print_status "Installing window management tools..."
-brew install aerospace
+brew install nikitabobko/tap/aerospace
 brew install sketchybar
 brew install borders
 brew install --cask raycast
@@ -97,6 +98,42 @@ brew install \
 
 # Install useful apps
 print_status "Installing applications..."
+
+# Function to install Mac App Store apps with error handling
+install_mas_app() {
+    local app_id="$1"
+    local app_name="$2"
+    
+    # Check if signed in to App Store
+    if ! mas account > /dev/null 2>&1; then
+        print_warning "Not signed in to App Store. Please sign in and try again."
+        print_status "You can sign in with: mas signin <apple_id>"
+        return 1
+    fi
+    
+    # Check if app is already installed
+    if mas list | grep -q "$app_id"; then
+        print_success "$app_name already installed, skipping..."
+        return 0
+    fi
+    
+    # Check if app is available in current region
+    print_status "Checking availability of $app_name..."
+    if ! mas info "$app_id" > /dev/null 2>&1; then
+        print_warning "$app_name (ID: $app_id) not available in your region's App Store"
+        print_status "Please install manually from the App Store"
+        return 0
+    fi
+    
+    print_status "Installing $app_name..."
+    if mas install "$app_id"; then
+        print_success "$app_name installed successfully"
+    else
+        print_error "Failed to install $app_name"
+        print_status "Please install manually from the App Store"
+        return 1
+    fi
+}
 
 # Function to install cask with error handling
 install_cask() {
@@ -177,18 +214,9 @@ if brew list --cask | grep -q "unified-remote"; then
     brew uninstall --cask unified-remote
 fi
 
-# Install UniFi Portal from App Store (not available via Homebrew)
-print_status "Installing UniFi Portal from App Store..."
-if mas install 1057750338; then
-    print_success "UniFi Portal installed successfully"
-else
-    print_error "Failed to install UniFi Portal"
-    print_status "Please install manually from: https://apps.apple.com/nl/app/unifi/id1057750338?l=en-GB"
-fi
+
 install_cask "gimp" "Gimp"
 install_cask "upscayl" "Upscayl"
-
-# UniFi Portal already handled in install_cask function above
 
 # Install Mac App Store Apps
 print_status "Installing Mac App Store Apps..."
@@ -199,9 +227,11 @@ if ! command -v mas &> /dev/null; then
     brew install mas
 fi
 
-install_mas_app "497799835" "Xcode"
-mas install 1480933944 #Vimari - Vim keybindings for Safari
-# UniFi Portal handled above with special case
+# install_mas_app "497799835" "Xcode"
+# install_mas_app "1480933944" "Vimari"
+# install_mas_app "1057750338" "UniFi"
+# Note: mas installs commented out due to outdated app store IDs
+# See: https://github.com/mas-cli/mas/issues/1052
 
 # Install Xcode Command Line Tools (already done at start)
 if ! xcode-select -p &> /dev/null; then
@@ -255,8 +285,8 @@ defaults write com.apple.finder ShowWindowShadow -bool true
 defaults write com.apple.finder SidebarWidth -integer 240
 
 # Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+sudo defaults write com.apple.Safari IncludeDevelopMenu -bool true
+sudo defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 
 # Screenshot settings
 defaults write com.apple.screencapture location -string "$HOME/Desktop"
@@ -305,7 +335,12 @@ create_symlink "$SCRIPT_DIR/.config/jankyborders" "$HOME/.config/jankyborders"
 print_status "Starting services..."
 
 # Enable aerospace to launch at login
-brew services start aerospace
+if command -v aerospace &> /dev/null; then
+    # Aerospace uses its own launch mechanism, not brew services
+    print_status "Note: Aerospace manages its own launch at login startup"
+else
+    print_warning "Aerospace not found, skipping service start"
+fi
 
 # Configure Raycast with our keybindings
 print_status "Configuring Raycast with custom shortcuts..."
