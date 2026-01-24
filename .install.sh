@@ -170,7 +170,14 @@ install_cask "crossover" "CrossOver"
 install_cask "league-of-legends" "League of Legends"
 install_cask "onedrive" "OneDrive"
 install_cask "zoom" "Zoom"
-install_cask "unifi-portal" "UniFi Portal"
+# Install UniFi Portal from App Store (not available via Homebrew)
+print_status "Installing UniFi Portal from App Store..."
+if mas install 1057750338; then
+    print_success "UniFi Portal installed successfully"
+else
+    print_error "Failed to install UniFi Portal"
+    print_status "Please install manually from: https://apps.apple.com/nl/app/unifi/id1057750338?l=en-GB"
+fi
 install_cask "gimp" "Gimp"
 install_cask "upscayl" "Upscayl"
 
@@ -180,6 +187,7 @@ install_cask "upscayl" "Upscayl"
 print_status "Installing Mac App Store Apps..."
 mas install 497799835 #xCode
 mas install 1480933944 #Vimari - Vim keybindings for Safari
+# UniFi Portal handled above with special case
 
 # Install Xcode Command Line Tools (already done at start)
 if ! xcode-select -p &> /dev/null; then
