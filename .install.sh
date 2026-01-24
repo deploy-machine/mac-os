@@ -83,7 +83,7 @@ brew install \
 print_status "Installing window management tools..."
 brew install aerospace
 brew install sketchybar
-brew install jankyborders
+brew install borders
 brew install --cask raycast
 
 # Install development tools
@@ -102,7 +102,26 @@ print_status "Installing applications..."
 install_cask() {
     local cask_name="$1"
     local app_name="$2"
-    local install_path="/Applications/${app_name}.app"
+    
+    # Special case mapping for apps that install with different names
+    case "$cask_name" in
+        "iterm2")
+            install_path="/Applications/iTerm.app"
+            ;;
+        "microsoft-office")
+            # Check for any Office app
+            if [ -d "/Applications/Microsoft Word.app" ] || [ -d "/Applications/Microsoft Excel.app" ] || [ -d "/Applications/Microsoft PowerPoint.app" ]; then
+                print_success "Microsoft Office already installed, skipping..."
+                return 0
+            fi
+            ;;
+        "league-of-legends")
+            install_path="/Applications/League of Legends.app"
+            ;;
+        *)
+            install_path="/Applications/${app_name}.app"
+            ;;
+    esac
     
     if [ -d "$install_path" ]; then
         print_success "$app_name already installed, skipping..."
@@ -134,6 +153,8 @@ install_cask "league-of-legends" "League of Legends"
 install_cask "onedrive" "OneDrive"
 install_cask "zoom" "Zoom"
 install_cask "unifi-portal" "UniFi Portal"
+install_cask "gimp" "Gimp"
+install_cask "upscayl" "Upscayl"
 
 # UniFi Portal already handled in install_cask function above
 
