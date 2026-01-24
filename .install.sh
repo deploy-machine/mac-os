@@ -103,9 +103,8 @@ brew install --cask \
     android-studio \
     microsoft-office \
     obsidian \
-    firefox \
-    google-chrome \
-    opera-gx \
+    safari \
+    figma \
     bitwarden \
     whatsapp \
     dbeaver-community \

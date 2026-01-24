@@ -127,24 +127,12 @@ if.app-id = 'com.apple.finder'
 run = ['move-node-to-workspace 1']
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
+if.app-id = 'com.apple.Safari'
 run = ['move-node-to-workspace 2']
-
-[[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
-run = ['move-node-to-workspace 2']
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
-run = ['move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.app-id = 'com.neovide.neovide'
 run = ['move-node-to-workspace 3']
-
-[[on-window-detected]]
-if.app-id = 'com.apple.Terminal'
-run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
 if.app-id = 'com.googlecode.iterm2'
@@ -155,28 +143,16 @@ if.app-id = 'com.hnc.Discord'
 run = ['move-node-to-workspace 5']
 
 [[on-window-detected]]
-if.app-id = 'org.whispersystems.signal-desktop'
-run = ['move-node-to-workspace 5']
-
-[[on-window-detected]]
-if.app-id = 'com.tinyspeck.slack.macgap'
-run = ['move-node-to-workspace 5']
-
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
+if.app-id = 'org.mozilla.zoom.us'
 run = ['move-node-to-workspace 6']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.zoom.us'
+if.app-id = 'com.microsoft.outlook'
 run = ['move-node-to-workspace 7']
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.outlook'
-run = ['move-node-to-workspace 8']
-
-[[on-window-detected]]
 if.app-id = 'org.obsidian.md-obsidian'
-run = ['move-node-to-workspace 9']
+run = ['move-node-to-workspace 8']
 
 [[on-window-detected]]
 if.app-id = 'com.figma.Desktop'
