@@ -157,6 +157,13 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
+# Finder status bar (show file path and disk info)
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowPathbarInStatusBars -bool true
+defaults write com.apple.finder ShowWindowShadow -bool true
+defaults write com.apple.finder SidebarWidth -integer 240
+
 # Safari
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
