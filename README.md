@@ -79,16 +79,21 @@ chmod +x .install.sh
   - **`Alt + S/D/E/W`**: Change layouts (vertical/horizontal/tall)
   
 **Automatic Workspace Assignment**:
-  - **Workspace 1**: Finder
-  - **Workspace 2**: Safari (Browser)
+  - **Workspace 1**: Finder (Internal Display)
+  - **Workspace 2**: Safari (Browser) - **External Monitor 1**
   - **Workspace 3**: Editors (Neovim)
-  - **Workspace 4**: Terminal (iTerm2)
-  - **Workspace 5**: Communication (Discord)
+  - **Workspace 4**: Terminal (iTerm2) - **External Monitor 2 (Main Display)**
+  - **Workspace 5**: Communication (Discord) - **External Monitor 3**
   - **Workspace 6**: Meetings (Zoom)
   - **Workspace 7**: Email (Outlook)
   - **Workspace 8**: Productivity (Obsidian)
   - **Workspace 9**: Design (Figma)
   - **Workspace 10**: System apps
+
+**Multi-Monitor Shortcuts**:
+  - **`Super + Ctrl + 1-4`**: Move workspace to specific monitor
+  - **`Super + Ctrl + Arrow Keys`**: Focus between monitors
+  - **`Monitor Layout**: Internal + 3 External (4 total displays)
 
 ### Raycast (App Launcher)
 - **Config**: `scripts/configure-raycast.sh` 

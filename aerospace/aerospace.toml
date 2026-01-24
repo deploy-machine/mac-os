@@ -119,9 +119,27 @@ cmd-shift-equal = 'resize width +50'
 cmd-ctrl-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen
 cmd-ctrl-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to restart"'
 
-# === MONITOR CONTROLS ===
-cmd-ctrl-1 = 'move-workspace-to-monitor 1'
-cmd-ctrl-2 = 'move-workspace-to-monitor 2'
+# === MONITOR CONTROLS AND ASSIGNMENTS ===
+# Monitor: 1 = Internal display, 2 = External monitor 1, 3 = External monitor 2, 4 = External monitor 3
+
+# Workspace-to-monitor assignments
+'workspace-to-monitor' = [
+  { workspace = 2, monitor = 2 },  # Browser on first external monitor
+  { workspace = 4, monitor = 2 },  # Terminal on main screen (second external monitor)  
+  { workspace = 5, monitor = 4 },  # Discord on third external monitor
+]
+
+# Move workspaces between monitors
+cmd-ctrl-1 = 'move-workspace-to-monitor 1'  # Move to internal display
+cmd-ctrl-2 = 'move-workspace-to-monitor 2'  # Move to first external monitor (main)
+cmd-ctrl-3 = 'move-workspace-to-monitor 3'  # Move to second external monitor
+cmd-ctrl-4 = 'move-workspace-to-monitor 4'  # Move to third external monitor
+
+# Focus monitors directly
+cmd-ctrl-h = 'focus-monitor left'
+cmd-ctrl-l = 'focus-monitor right'
+cmd-ctrl-j = 'focus-monitor down'
+cmd-ctrl-k = 'focus-monitor up'
 
 # Service mode bindings
 [mode.service.binding]
