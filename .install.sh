@@ -185,6 +185,13 @@ install_cask "upscayl" "Upscayl"
 
 # Install Mac App Store Apps
 print_status "Installing Mac App Store Apps..."
+
+# Check if mas is installed, install if not
+if ! command -v mas &> /dev/null; then
+    print_status "Installing mas (Mac App Store command line tool)..."
+    brew install mas
+fi
+
 mas install 497799835 #xCode
 mas install 1480933944 #Vimari - Vim keybindings for Safari
 # UniFi Portal handled above with special case
