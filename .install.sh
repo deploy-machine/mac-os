@@ -97,24 +97,45 @@ brew install \
 
 # Install useful apps
 print_status "Installing applications..."
-brew install --cask \
-    iterm2 \
-    discord \
-    android-studio \
-    microsoft-office \
-    obsidian \
-    figma \
-    bitwarden \
-    whatsapp \
-    dbeaver-community \
-    docker \
-    crossover \
-    leagueoflegends \
-    onedrive \
-    zoom
 
-# Install UniFi Portal instead of Wireguard
-brew install --cask unifi-portal
+# Function to install cask with error handling
+install_cask() {
+    local cask_name="$1"
+    local app_name="$2"
+    local install_path="/Applications/${app_name}.app"
+    
+    if [ -d "$install_path" ]; then
+        print_success "$app_name already installed, skipping..."
+        return 0
+    fi
+    
+    print_status "Installing $app_name..."
+    if brew install --cask "$cask_name"; then
+        print_success "$app_name installed successfully"
+    else
+        print_error "Failed to install $app_name"
+        return 1
+    fi
+}
+
+# Install each app with error handling
+install_cask "iterm2" "iTerm2"
+install_cask "discord" "Discord"
+install_cask "android-studio" "Android Studio"
+install_cask "microsoft-office" "Microsoft Office"
+install_cask "obsidian" "Obsidian"
+install_cask "figma" "Figma"
+install_cask "bitwarden" "Bitwarden"
+install_cask "whatsapp" "WhatsApp"
+install_cask "dbeaver-community" "DBeaver Community"
+install_cask "docker" "Docker Desktop"
+install_cask "crossover" "CrossOver"
+install_cask "league-of-legends" "League of Legends"
+install_cask "onedrive" "OneDrive"
+install_cask "zoom" "Zoom"
+install_cask "unifi-portal" "UniFi Portal"
+
+# UniFi Portal already handled in install_cask function above
 
 # Install Mac App Store Apps
 print_status "Installing Mac App Store Apps..."
@@ -125,6 +146,8 @@ mas install 1480933944 #Vimari - Vim keybindings for Safari
 if ! xcode-select -p &> /dev/null; then
     print_status "Installing Xcode Command Line Tools..."
     xcode-select --install
+else
+    print_success "Xcode Command Line Tools already installed"
 fi
 
 # Install fonts
