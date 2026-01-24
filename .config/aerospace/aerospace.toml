@@ -2,35 +2,15 @@
 # Place file contents in ~/.config/aerospace/aerospace.toml
 # After installing, run: aerospace reload-config
 
-# Gaps between windows (smaller for tighter layout like Omarchy)
-[gaps]
-inner.horizontal = 4
-inner.vertical =   4
-outer.left =       4
-outer.top =        4
-outer.right =      4
-outer.bottom =     4
-
-# Main workspace configuration
-
-# Floating windows (exceptions for dialogs, etc.)
-'floating' = [
-  { title = '.*Preferences.*' },
-  { title = '.*Settings.*' },
-  { title = '.*About.*' },
-  { app-id = 'com.apple.systempreferences' },
-  { app-id = 'com.apple.finder' },
-]
-
-# Auto-layout enable
-'auto-layout' = true
+config-version = 2
 
 # Window title appearance and startup commands
-[exec]
-inherit-env-vars = true
 after-startup-command = [
   'exec-and-forget sketchybar',
   'exec-and-forget borders active_color=0xfffda1a0 inactive_color=0xff404040 width=3.0 style=round',
+  # Ensure all workspaces exist on startup
+  'workspace 1', 'workspace 2', 'workspace 3', 'workspace 4', 'workspace 5', 'workspace 6', 'workspace 7', 'workspace 8',
+  'workspace 9', 'workspace 10', 'workspace 11', 'workspace 12', 'workspace 13',
   # Auto-start apps on correct workspaces with staggered delays
   'exec-and-forget sleep 1 && open -a Finder && aerospace workspace 1',
   'exec-and-forget sleep 2 && open -a Safari && aerospace workspace 2',
@@ -41,6 +21,46 @@ after-startup-command = [
   'exec-and-forget sleep 7 && open -a "Microsoft Outlook" && aerospace workspace 7',
   'exec-and-forget sleep 8 && open -a Figma && aerospace workspace 8'
 ]
+
+# Auto-layout enable
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Note: Floating windows handled by default behavior
+
+# Persistent workspaces (always exist)
+persistent-workspaces = [
+  '1:📁', '2:🌐', '3:📝', '4:💻', '5:🎨', '6:🎥', '7:📧', '8:📊', '9:📋', '10:💻', '11:💬', '12:🔐', '13:📱'
+]
+
+# Monitor workspace assignments
+[workspace-to-monitor-force-assignment]
+# Built-in display workspaces
+1 = 1
+7 = 1
+10 = 1
+# First external monitor (MSI G27C4 (1)) - Safari workspace
+2 = 2
+5 = 2
+8 = 2
+# Second external monitor (27GN7) - Terminal workspace
+3 = 3
+4 = 3
+6 = 3
+9 = 3
+# Third external monitor (MSI G27C4 (2)) - Discord workspace
+11 = 4
+12 = 4
+13 = 4
+
+# Gaps between windows (smaller for tighter layout like Omarchy)
+[gaps]
+inner.horizontal = 4
+inner.vertical =   4
+outer.left =       4
+outer.top =        4
+outer.right =      4
+outer.bottom =     4
 
 # Main mode bindings - Super (Cmd) as primary modifier like Omarchy
 [mode.main.binding]
@@ -57,34 +77,42 @@ ctrl-shift-k = 'move up'
 ctrl-shift-l = 'move right'
 
 # === WINDOW CONTROL (Omarchy style) ===
-ctrl-w = 'close'
-ctrl-f = 'fullscreen'
+ctrl-q = 'close'
 ctrl-shift-f = 'layout floating tiling'
-ctrl-t = 'layout floating'  # Toggle floating
+ctrl-shift-t = 'layout floating'  # Toggle floating
 
 # === WORKSPACE NAVIGATION (Ctrl + Letter for named workspaces) ===
-ctrl-f = 'workspace 1'  # Finder workspace
-ctrl-b = 'workspace 2'  # Browser workspace  
-ctrl-n = 'workspace 3'  # Notes/Editor workspace
-ctrl-t = 'workspace 4'  # Terminal workspace
-ctrl-c = 'workspace 5'  # Communication workspace
-ctrl-z = 'workspace 6'  # Meetings workspace
-ctrl-o = 'workspace 7'  # Mail workspace
-ctrl-d = 'workspace 8'  # Design workspace
-ctrl-1 = 'workspace 9'  # Extra workspace 1
-ctrl-2 = 'workspace 10' # Extra workspace 2
+# Built-in Display (Monitor 1)
+ctrl-f = 'workspace 1:📁'  # Finder workspace
+ctrl-o = 'workspace 7:📧'  # Mail workspace (Outlook)
+ctrl-1 = 'workspace 10:💻' # Extra workspace
+
+# First External Monitor (MSI G27C4 (1)) - Safari workspace
+ctrl-b = 'workspace 2:🌐'  # Safari workspace  
+ctrl-d = 'workspace 5:🎨'  # Design/Figma workspace
+
+# Second External Monitor (27GN7) - Terminal workspace
+ctrl-n = 'workspace 3:📝'  # Notes/Obsidian workspace
+ctrl-t = 'workspace 4:💻'  # Terminal workspace (iTerm2)
+ctrl-z = 'workspace 6:🎥'  # Zoom workspace
+ctrl-2 = 'workspace 9:📋'  # Extra workspace
+
+# Third External Monitor (MSI G27C4 (2)) - Discord workspace
+ctrl-c = 'workspace 11:💬'  # Discord workspace
+ctrl-w = 'workspace 12:🔐'  # Bitwarden workspace
+ctrl-a = 'workspace 13:📱'  # WhatsApp workspace
 
 # === NUMERIC WORKSPACE NAVIGATION (Backup) ===
-ctrl-alt-1 = 'workspace 1'
-ctrl-alt-2 = 'workspace 2'
-ctrl-alt-3 = 'workspace 3'
-ctrl-alt-4 = 'workspace 4'
-ctrl-alt-5 = 'workspace 5'
-ctrl-alt-6 = 'workspace 6'
-ctrl-alt-7 = 'workspace 7'
-ctrl-alt-8 = 'workspace 8'
-ctrl-alt-9 = 'workspace 9'
-ctrl-alt-0 = 'workspace 10'
+ctrl-alt-1 = 'workspace 1:📁'
+ctrl-alt-2 = 'workspace 2:🌐'
+ctrl-alt-3 = 'workspace 3:📝'
+ctrl-alt-4 = 'workspace 4:💻'
+ctrl-alt-5 = 'workspace 5:🎨'
+ctrl-alt-6 = 'workspace 6:🎥'
+ctrl-alt-7 = 'workspace 7:📧'
+ctrl-alt-8 = 'workspace 8:📊'
+ctrl-alt-9 = 'workspace 9:📋'
+ctrl-alt-0 = 'workspace 10:💻'
 
 # === WORKSPACE SWITCHING ===
 ctrl-tab = 'workspace-back-and-forth'  # Ctrl + Tab
@@ -113,16 +141,16 @@ ctrl-equal = 'resize smart +50'
 ctrl-shift-minus = 'resize width -50'
 ctrl-shift-equal = 'resize width +50'
 
-# === APPLICATION LAUNCHER (Ctrl + Space like Omarchy) ===
-ctrl-space = 'exec-and-forget open -a Raycast'
+# Note: Application launchers handled by Raycast
+# Safari will auto-assign to workspace 2 via window rules below
 
 # === SYSTEM CONTROLS ===
 ctrl-alt-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen
 ctrl-alt-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to restart"'  # Restart
 
 # === MONITOR CONTROLS ===
-ctrl-alt-1 = 'move-workspace-to-monitor 1'
-ctrl-alt-2 = 'move-workspace-to-monitor 2'
+ctrl-alt-m = 'move-workspace-to-monitor 1'
+ctrl-alt-shift-m = 'move-workspace-to-monitor 2'
 
 # Service mode bindings
 [mode.service.binding]
@@ -138,6 +166,7 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 # Application workspace assignments (like Hyprland window rules)
+# Window rules for all applications
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['move-node-to-workspace 1']
@@ -147,7 +176,7 @@ if.app-id = 'com.apple.Safari'
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'com.neovide.neovide'
+if.app-id = 'md.obsidian'
 run = ['move-node-to-workspace 3']
 
 [[on-window-detected]]
@@ -156,20 +185,36 @@ run = ['move-node-to-workspace 4']
 
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
-run = ['move-node-to-workspace 5']
-
-[[on-window-detected]]
-if.app-id = 'us.zoom.xos'
-run = ['move-node-to-workspace 6']
+run = ['move-node-to-workspace 11']
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
 run = ['move-node-to-workspace 7']
 
 [[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = ['move-node-to-workspace 8']
+if.app-id = 'com.figma.Desktop'
+run = ['move-node-to-workspace 5']
 
 [[on-window-detected]]
-if.app-id = 'com.figma.Desktop'
-run = ['move-node-to-workspace 9']
+if.app-id = 'com.bitwarden.desktop'
+run = ['move-node-to-workspace 12']
+
+[[on-window-detected]]
+if.app-id = 'com.codeweavers.CrossOver'
+run = ['move-node-to-workspace 10']  # Put CrossOver on extra workspace
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = ['move-node-to-workspace 13']  # WhatsApp workspace
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = ['move-node-to-workspace 2']  # Chrome to same workspace as Safari
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = ['move-node-to-workspace 2']  # Firefox to same workspace as Safari
+
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos'
+run = ['move-node-to-workspace 6']  # Zoom workspace
