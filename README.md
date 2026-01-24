@@ -64,7 +64,8 @@ chmod +x .install.sh
   - **`Option + M`** → Outlook (Mail)
   - **`Option + S`** → Raycast (Launcher)
   - **`Option + Q`** → Quit current app
-  - **`Option + Enter`** → Open terminal
+  - **`Option + Enter`** → Smart new tab/window (app-specific)
+  - **`Option + Shift + Enter`** → Close current tab/window (app-specific)
 
 - **Window Management**: **Super (Cmd)** key (like Omarchy's Super key)
   - **`Super + H/J/K/L`**: Focus window left/down/up/right
@@ -113,6 +114,22 @@ chmod +x .install.sh
   - **Option + Shift + =** → Calculator
   - **⌘ + Space** → Alternative launcher
 - **Features**: Auto-start at login, pre-configured extensions, MilkOutside theme colors
+
+### Smart Tab Management
+- **Scripts**: `scripts/new-tab.sh`, `scripts/close-tab.sh`
+- **Primary Hotkey**: **Option + Enter** → Smart new tab/window (app-specific)
+- **Secondary Hotkey**: **Option + Shift + Enter** → Close current tab/window (app-specific)
+- **Supported Applications**:
+  - **Finder**: New window
+  - **iTerm2**: New tab
+  - **Safari**: New tab
+  - **Chrome**: New tab
+  - **Discord**: New channel
+  - **Slack**: New conversation
+  - **Obsidian**: New note
+  - **Zoom**: New meeting
+  - **Outlook**: New email
+- **Universal Fallback**: Uses Cmd+N for unsupported apps
 
 ### Finder
 - **Status Bar**: Shows current file path and disk space information
