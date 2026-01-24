@@ -30,7 +30,7 @@ outer.bottom =     4
 inherit-env-vars = true
 after-startup-command = [
   'exec-and-forget sketchybar',
-  'exec-and-forget borders active_color=0xff89b4fa inactive_color=0xff313244 width=3.0 style=round'
+  'exec-and-forget borders active_color=0xfffda1a0 inactive_color=0xff404040 width=3.0 style=round'
 ]
 
 # Main mode bindings - Super (Cmd) as primary modifier like Omarchy
@@ -53,36 +53,48 @@ cmd-f = 'fullscreen'
 cmd-shift-f = 'layout floating tiling'
 cmd-t = 'layout floating'  # Toggle floating
 
-# === WORKSPACE NAVIGATION (Super + 1-9/0) ===
-cmd-1 = 'workspace 1'
-cmd-2 = 'workspace 2'
-cmd-3 = 'workspace 3'
-cmd-4 = 'workspace 4'
-cmd-5 = 'workspace 5'
-cmd-6 = 'workspace 6'
-cmd-7 = 'workspace 7'
-cmd-8 = 'workspace 8'
-cmd-9 = 'workspace 9'
-cmd-0 = 'workspace 10'
+# === WORKSPACE NAVIGATION (Cmd + Letter for named workspaces) ===
+cmd-f = 'workspace 1'  # Finder workspace
+cmd-b = 'workspace 2'  # Browser workspace  
+cmd-n = 'workspace 3'  # Notes/Editor workspace
+cmd-t = 'workspace 4'  # Terminal workspace
+cmd-c = 'workspace 5'  # Communication workspace
+cmd-z = 'workspace 6'  # Meetings workspace
+cmd-m = 'workspace 7'  # Mail workspace
+cmd-d = 'workspace 8'  # Design workspace
+cmd-1 = 'workspace 9'  # Extra workspace 1
+cmd-2 = 'workspace 10' # Extra workspace 2
+
+# === NUMERIC WORKSPACE NAVIGATION (Backup) ===
+cmd-alt-1 = 'workspace 1'
+cmd-alt-2 = 'workspace 2'
+cmd-alt-3 = 'workspace 3'
+cmd-alt-4 = 'workspace 4'
+cmd-alt-5 = 'workspace 5'
+cmd-alt-6 = 'workspace 6'
+cmd-alt-7 = 'workspace 7'
+cmd-alt-8 = 'workspace 8'
+cmd-alt-9 = 'workspace 9'
+cmd-alt-0 = 'workspace 10'
 
 # === WORKSPACE SWITCHING ===
-cmd-tab = 'workspace-back-and-forth'  # Super + Tab like Omarchy
+cmd-tab = 'workspace-back-and-forth'  # Cmd + Tab
 
-# === MOVE TO WORKSPACE (Super + Shift + 1-9/0) ===
-cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-cmd-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-cmd-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
-cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
-cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
-cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
-cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
-cmd-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
+# === MOVE TO WORKSPACE (Cmd + Alt + 1-9/0) ===
+cmd-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+cmd-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+cmd-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+cmd-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+cmd-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+cmd-alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+cmd-alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+cmd-alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+cmd-alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+cmd-alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
 # === LAYOUT MANAGEMENT (Alt for layouts like Omarchy) ===
 alt-s = ['layout v_accordion', 'mode service']
-alt-d = ['layout h_accordion', 'mode service'] 
+alt-l = ['layout h_accordion', 'mode service'] 
 alt-e = ['layout tiles horizontal vertical', 'mode service']
 alt-w = ['layout tiles', 'mode service']
 
@@ -95,17 +107,9 @@ cmd-shift-equal = 'resize width +50'
 # === APPLICATION LAUNCHER (Super + Space like Omarchy) ===
 cmd-space = 'exec-and-forget open -a Raycast'
 
-# === APP LAUNCHING (Option + Letter shortcuts) ===
-alt-b = 'exec-and-forget open -a Safari'
-alt-f = 'exec-and-forget open -a Finder'
-alt-t = 'exec-and-forget open -a iTerm'
-alt-n = 'exec-and-forget open -a Obsidian'
-alt-d = 'exec-and-forget open -a Figma'
-alt-c = 'exec-and-forget open -a Discord'
-alt-z = 'exec-and-forget open -a "zoom.us"'
-alt-m = 'exec-and-forget open -a "Microsoft Outlook"'
-alt-s = 'exec-and-forget open -a Raycast'
-alt-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to keystroke \\"q\\" using command down"'
+# === REMOVED APP LAUNCHING ===
+# App launching moved to Raycast with Cmd+Shift+Letter shortcuts
+# No conflicts with workspace navigation
 
 # === SYSTEM CONTROLS ===
 cmd-ctrl-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen
@@ -150,15 +154,15 @@ if.app-id = 'com.hnc.Discord'
 run = ['move-node-to-workspace 5']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.zoom.us'
+if.app-id = 'us.zoom.xos'
 run = ['move-node-to-workspace 6']
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.outlook'
+if.app-id = 'com.microsoft.Outlook'
 run = ['move-node-to-workspace 7']
 
 [[on-window-detected]]
-if.app-id = 'org.obsidian.md-obsidian'
+if.app-id = 'md.obsidian'
 run = ['move-node-to-workspace 8']
 
 [[on-window-detected]]

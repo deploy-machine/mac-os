@@ -83,6 +83,38 @@ cat > "$RAYCAST_CONFIG_FILE" << 'EOL'
     },
     "filesearch": {
       "hotkey": "option+shift+f"
+    },
+    "app-safari": {
+      "hotkey": "option+b",
+      "application": "Safari"
+    },
+    "app-finder": {
+      "hotkey": "option+f",
+      "application": "Finder"
+    },
+    "app-iterm": {
+      "hotkey": "option+t",
+      "application": "iTerm"
+    },
+    "app-obsidian": {
+      "hotkey": "option+n",
+      "application": "Obsidian"
+    },
+    "app-figma": {
+      "hotkey": "option+d",
+      "application": "Figma"
+    },
+    "app-discord": {
+      "hotkey": "option+c",
+      "application": "Discord"
+    },
+    "app-zoom": {
+      "hotkey": "option+z",
+      "application": "Zoom"
+    },
+    "app-outlook": {
+      "hotkey": "option+m",
+      "application": "Microsoft Outlook"
     }
   },
   "extensions": {
@@ -102,7 +134,7 @@ cat > "$RAYCAST_CONFIG_FILE" << 'EOL'
   },
   "theme": {
     "appearance": "dark",
-    "accentColor": "#89b4fa"
+    "accentColor": "#fda1a0"
   }
 }
 EOL
@@ -175,19 +207,27 @@ end tell
 EOF
 
 # Instructions for manual configuration
-print_warning "Some Raycast settings require manual confirmation:"
+print_warning "Raycast hotkeys need to be configured manually:"
 print_status "1. Open Raycast preferences (⌘ + ,)"
 print_status "2. Go to 'Hotkeys' section"
-print_status "3. Verify these hotkeys:"
+print_status "3. Set these hotkeys:"
 echo
 echo "  Option + S     → Main Launcher"
+echo "  Option + B     → Safari"
+echo "  Option + F     → Finder"
+echo "  Option + T     → iTerm2"
+echo "  Option + N     → Obsidian"
+echo "  Option + D     → Figma"
+echo "  Option + C     → Discord"
+echo "  Option + Z     → Zoom"
+echo "  Option + M     → Microsoft Outlook"
 echo "  Option + Shift + C → Clipboard History" 
 echo "  Option + Shift + S → Snippets"
 echo "  Option + Shift + F → File Search"
 echo "  Option + Shift + = → Calculator"
-echo "  ⌘ + Space     → Alternative Launcher (AeroSpace)"
 echo
-print_status "4. Install recommended extensions from the Raycast Store"
+print_status "4. Install 'Application Shortcuts' extension from Raycast Store"
+print_status "5. Restart Raycast to apply changes"
 
 # Add environment variable for Raycast
 if ! grep -q "RAYCAST_CONFIG_DIR" ~/.zshrc; then

@@ -1,8 +1,8 @@
-# JankyBorders configuration
+# JankyBorders configuration with MilkOutside theme
 # Place file contents in ~/.config/jankyborders/config
 
-active_color=0xff89b4fa
-inactive_color=0xff313244
-width=5.0
+active_color=0xfffda1a0
+inactive_color=0xff404040
+width=3.0
 style=round
 hidpi=on

@@ -259,6 +259,26 @@ fi
 # macOS Settings
 print_status "Applying macOS defaults..."
 
+# === CLEAR CONFLICTING SYSTEM KEYBINDINGS ===
+print_status "Removing conflicting system keybindings..."
+
+# Spotlight (Cmd+Space) - we use it for Raycast/AeroSpace
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 -dict key 0 modifiers 0
+
+# Mission Control (Cmd+F/B/T/N/C/Z/M/D) - we use these for workspaces
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 32 -dict key 3 modifiers 1048576  # Cmd+F
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 -dict key 5 modifiers 1048576  # Cmd+B  
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 17 -dict key 16 modifiers 1048576 # Cmd+T
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 46 modifiers 1048576  # Cmd+N
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 11 modifiers 1048576  # Cmd+M
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 2 modifiers 1048576   # Cmd+D
+
+# Application windows (Cmd+`) - disable to avoid conflicts
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 27 -dict key 50 modifiers 1048576
+
+# Keyboard navigation (Cmd+Tab) - keep but disable app exposé
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 118 -dict key 34 modifiers 1310720
+
 # Dock and menu bar
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock mru-spaces -bool true
@@ -296,6 +316,11 @@ defaults write com.apple.screencapture type -string "png"
 # Network
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Disable desktop icons and prevent showing desktop when clicking background
+defaults write com.apple.finder CreateDesktop -bool false
+defaults write com.apple.finder ShowDesktop -bool false
+defaults write com.apple.finder QuitMenuItem -bool true
 
 # Setup dotfiles symlinks
 print_status "Setting up configuration files..."
@@ -340,6 +365,22 @@ if command -v aerospace &> /dev/null; then
     print_status "Note: Aerospace manages its own launch at login startup"
 else
     print_warning "Aerospace not found, skipping service start"
+fi
+
+# Start SketchyBar service
+if command -v sketchybar &> /dev/null; then
+    print_status "Starting SketchyBar service..."
+    brew services start sketchybar
+else
+    print_warning "SketchyBar not found, skipping service start"
+fi
+
+# Configure JankyBorders to start at login via Aerospace
+if command -v borders &> /dev/null; then
+    print_status "Configuring JankyBorders to start with Aerospace..."
+    # JankyBorders will be started via aerospace.toml exec section
+else
+    print_warning "JankyBorders not found, skipping service start"
 fi
 
 # Configure Raycast with our keybindings
@@ -420,8 +461,13 @@ killall Dock 2>/dev/null || true
 killall Finder 2>/dev/null || true
 
 print_success "Installation completed!"
-print_warning "Please restart your terminal and log out/in to apply all changes"
+print_warning "Please restart your computer to apply system keybinding changes"
 print_status "Note: Configure aerospace permissions in System Settings > Privacy & Security > Accessibility"
+echo
+print_status "NEW KEYBINDING SYSTEM:"
+echo "  • Cmd + Letter: Switch to named workspace (F=Finder, B=Browser, T=Terminal, etc.)"
+echo "  • Cmd + Shift + Letter: Launch apps via Raycast"
+echo "  • Conflicting system keybindings have been disabled"
 echo
 print_status "For gaming setup with DLSS support:"
 echo "  1. Download Game Porting Toolkit 3.0 from Apple Developer"
