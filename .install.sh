@@ -265,13 +265,16 @@ print_status "Removing conflicting system keybindings..."
 # Spotlight (Cmd+Space) - we use it for Raycast/AeroSpace
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 -dict key 0 modifiers 0
 
-# Mission Control (Cmd+F/B/T/N/C/Z/M/D) - we use these for workspaces
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 32 -dict key 3 modifiers 1048576  # Cmd+F
+# Mission Control (Cmd+B/T/N/C/Z/M/D) - we use these for workspaces (keep Cmd+F disabled)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 32 -dict key 2 modifiers 1048576   # Cmd+F (disabled)
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 -dict key 5 modifiers 1048576  # Cmd+B  
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 17 -dict key 16 modifiers 1048576 # Cmd+T
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 46 modifiers 1048576  # Cmd+N
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 11 modifiers 1048576  # Cmd+M
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 2 modifiers 1048576   # Cmd+D
+
+# Keep Ctrl+F for system-wide search (Spotlight/Find)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 -dict key 3 modifiers 2560  # Ctrl+F enabled
 
 # Application windows (Cmd+`) - disable to avoid conflicts
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 27 -dict key 50 modifiers 1048576
