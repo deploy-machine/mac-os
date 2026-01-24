@@ -226,7 +226,12 @@ brew services start aerospace
 # Configure Raycast with our keybindings
 print_status "Configuring Raycast with custom shortcuts..."
 if [ -f "$SCRIPT_DIR/scripts/configure-raycast.sh" ]; then
-    bash "$SCRIPT_DIR/scripts/configure-raycast.sh"
+    # Only configure if Raycast config doesn't exist or if --force flag is used
+    if [ ! -f "$HOME/Library/Application Support/com.raycast.macos/raycast.json" ] || [ "$1" = "--force" ]; then
+        bash "$SCRIPT_DIR/scripts/configure-raycast.sh"
+    else
+        print_status "Raycast already configured, skipping (use --force to reconfigure)"
+    fi
 else
     print_warning "Raycast configuration script not found"
 fi
@@ -249,7 +254,11 @@ if [ -d "$HOME/.config/nvim" ]; then
 fi
 
 # Clone LazyVim starter
-print_status "Cloning LazyVim starter..."
+print_status "Setting up LazyVim..."
+if [ -d "$HOME/.config/nvim" ]; then
+    print_warning "Existing Neovim config found, backing up..."
+    mv "$HOME/.config/nvim" "$HOME/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)"
+fi
 git clone https://github.com/LazyVim/starter "$HOME/.config/nvim"
 rm -rf "$HOME/.config/nvim/.git"
 
@@ -267,7 +276,14 @@ curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.
 # Setup mise
 print_status "Setting up mise..."
 if command -v mise &> /dev/null; then
-    mise activate zsh >> ~/.zshrc
+    # Only add to .zshrc if not already there
+    if ! grep -q "mise activate" ~/.zshrc; then
+        mise activate zsh >> ~/.zshrc
+        print_success "Added mise activation to .zshrc"
+    else
+        print_status "mise already configured in .zshrc"
+    fi
+    
     print_status "Installing common tools with mise..."
     mise install node@lts python@latest rust@latest go@latest
     mise use -g node@lts python@latest rust@latest go@latest
