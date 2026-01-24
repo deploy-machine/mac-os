@@ -1,103 +1,183 @@
+# AeroSpace configuration inspired by Omarchy/Hyprland workflow
 # Place file contents in ~/.config/aerospace/aerospace.toml
 # After installing, run: aerospace reload-config
 
-# Basic AeroSpace config with sensible defaults
-# See: https://github.com/nikitabobko/AeroSpace#configuration
-
-# Gaps between windows
+# Gaps between windows (smaller for tighter layout like Omarchy)
 [gaps]
-inner.horizontal = 8
-inner.vertical =   8
-outer.left =       8
-outer.top =        8
-outer.right =      8
-outer.bottom =     8
+inner.horizontal = 4
+inner.vertical =   4
+outer.left =       4
+outer.top =        4
+outer.right =      4
+outer.bottom =     4
 
-# Window management
+# Main workspace configuration
 [main]
 binding-mode = 'work'
-gaps.outer.all = 8
-gaps.inner.horizontal = 8
-gaps.inner.vertical = 8
+gaps.outer.all = 4
+gaps.inner.horizontal = 4
+gaps.inner.vertical = 4
 
-# Floating windows
-# 'floating' = [
-#   { title = '.*' }, # All windows
-# ]
+# Floating windows (exceptions for dialogs, etc.)
+'floating' = [
+  { title = '.*Preferences.*' },
+  { title = '.*Settings.*' },
+  { title = '.*About.*' },
+  { app-id = 'com.apple.systempreferences' },
+  { app-id = 'com.apple.finder' },
+]
 
-# Auto-layout
-# 'auto-layout' = true
+# Auto-layout enable
+'auto-layout' = true
 
-# Window title appearance
+# Window title appearance and startup commands
 [exec]
 inherit-env-vars = true
 after-startup-command = [
   'exec-and-forget sketchybar',
-  'exec-and-forget borders active_color=0xff89b4fa inactive_color=0xff313244 width=5.0'
+  'exec-and-forget borders active_color=0xff89b4fa inactive_color=0xff313244 width=3.0 style=round'
 ]
 
-# Workspace layout
-# 'workspace-to-monitor-fix' = []
-
-# Normalizations
+# Main mode bindings - Super (Cmd) as primary modifier like Omarchy
 [mode.main.binding]
+# === WINDOW NAVIGATION (Super + Arrow keys - like Hyprland) ===
+cmd-h = 'focus left'
+cmd-j = 'focus down'
+cmd-k = 'focus up'
+cmd-l = 'focus right'
+
+# === WINDOW MOVEMENT (Super + Shift + Arrow - like Hyprland) ===
+cmd-shift-h = 'move left'
+cmd-shift-j = 'move down'
+cmd-shift-k = 'move up'
+cmd-shift-l = 'move right'
+
+# === WINDOW CONTROL (Omarchy style) ===
+cmd-w = 'close'
+cmd-f = 'fullscreen'
+cmd-shift-f = 'layout floating tiling'
+cmd-t = 'layout floating'  # Toggle floating
+
+# === WORKSPACE NAVIGATION (Super + 1-9/0) ===
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+cmd-6 = 'workspace 6'
+cmd-7 = 'workspace 7'
+cmd-8 = 'workspace 8'
+cmd-9 = 'workspace 9'
+cmd-0 = 'workspace 10'
+
+# === WORKSPACE SWITCHING ===
+cmd-tab = 'workspace-back-and-forth'  # Super + Tab like Omarchy
+
+# === MOVE TO WORKSPACE (Super + Shift + 1-9/0) ===
+cmd-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+cmd-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+cmd-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+cmd-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+cmd-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+cmd-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+cmd-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
+
+# === LAYOUT MANAGEMENT (Alt for layouts like Omarchy) ===
 alt-s = ['layout v_accordion', 'mode service']
-alt-d = ['layout h_accordion', 'mode service']
+alt-d = ['layout h_accordion', 'mode service'] 
 alt-e = ['layout tiles horizontal vertical', 'mode service']
-alt-f = ['fullscreen', 'mode service']
-alt-shift-f = ['layout floating tiling', 'mode service']
+alt-w = ['layout tall', 'mode service']
 
-# Focus navigation
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+# === WINDOW RESIZING ===
+cmd-minus = 'resize smart -50'
+cmd-equal = 'resize smart +50'
+cmd-shift-minus = 'resize width -50'
+cmd-shift-equal = 'resize width +50'
 
-# Move windows
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
+# === APPLICATION LAUNCHER (Super + Space like Omarchy) ===
+cmd-space = 'exec-and-forget open -a Raycast'
 
-# Window resizing
-alt-minus = 'resize smart -50'
-alt-equal = 'resize smart +50'
+# === SYSTEM CONTROLS ===
+cmd-ctrl-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen
+cmd-ctrl-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to restart"'  # Restart
 
-# Workspaces (1-9, 0)
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
-alt-0 = 'workspace 10'
-
-# Move windows between workspaces
-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
-alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
-alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
-alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
-alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
-alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
+# === MONITOR CONTROLS ===
+cmd-ctrl-1 = 'move-workspace-to-monitor 1'
+cmd-ctrl-2 = 'move-workspace-to-monitor 2'
 
 # Service mode bindings
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
-r = ['flatten-workspace-tree', 'mode main'] # reset layout
+r = ['flatten-workspace-tree', 'mode main']
 backspace = ['close-all-windows-but-current', 'mode main']
+q = ['mode main']
+
+# Join windows (advanced window management)
 alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']  
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-# Workspace assignments to monitors
-# [[on-window-detected]]
-# if.app-id = 'com.apple.systempreferences'
-# run = ['move-node-to-workspace 10']
+# Application workspace assignments (like Hyprland window rules)
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.neovide.neovide'
+run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'org.whispersystems.signal-desktop'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slack.macgap'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = ['move-node-to-workspace 6']
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.zoom.us'
+run = ['move-node-to-workspace 7']
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.outlook'
+run = ['move-node-to-workspace 8']
+
+[[on-window-detected]]
+if.app-id = 'org.obsidian.md-obsidian'
+run = ['move-node-to-workspace 9']
+
+[[on-window-detected]]
+if.app-id = 'com.figma.Desktop'
+run = ['move-node-to-workspace 9']
