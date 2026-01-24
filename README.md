@@ -18,9 +18,18 @@ A clean macOS setup with modern window management using AeroSpace, SketchyBar, a
 - **Security**: Bitwarden for password management
 - **Database**: DBeaver Community for database management
 - **Productivity**: Obsidian for note-taking, Figma for design work
-- **Gaming**: League of Legends for entertainment
-- **Cross-platform**: Crossover for Windows app compatibility
+- **Gaming**: League of Legends, CrossOver with Game Porting Toolkit 3.0
+- **Cross-platform**: Crossover for Windows app compatibility  
 - **DevOps**: Docker Desktop for container development
+
+### Game Porting Toolkit 3.0 Setup
+- **Script**: `scripts/setup-gptk.sh` 
+- **Features**: 
+  - Automated Game Porting Toolkit 3.0 installation with DLSS support
+  - Updates CrossOver bottles with MetalFX/DLSS capabilities
+  - Automatic DLL file preparation and configuration
+  - Metal Performance HUD setup for testing
+- **Usage**: Run after downloading GPTK 3.0 from Apple Developer portal
 
 ## 📦 Installation
 

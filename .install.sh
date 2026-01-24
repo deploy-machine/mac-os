@@ -287,3 +287,8 @@ killall Finder 2>/dev/null || true
 print_success "Installation completed!"
 print_warning "Please restart your terminal and log out/in to apply all changes"
 print_status "Note: Configure aerospace permissions in System Settings > Privacy & Security > Accessibility"
+echo
+print_status "For gaming setup with DLSS support:"
+echo "  1. Download Game Porting Toolkit 3.0 from Apple Developer"
+echo "  2. Run: ~/dotfiles/scripts/setup-gptk.sh"
+echo "  3. Enable DLSS in your games and use Metal HUD to verify"
