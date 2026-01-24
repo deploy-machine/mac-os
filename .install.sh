@@ -118,6 +118,24 @@ install_cask() {
         "league-of-legends")
             install_path="/Applications/League of Legends.app"
             ;;
+        "dbeaver-community")
+            install_path="/Applications/DBeaver.app"
+            ;;
+        "bitwarden")
+            install_path="/Applications/Bitwarden.app"
+            ;;
+        "android-studio")
+            install_path="/Applications/Android Studio.app"
+            ;;
+        "microsoft-outlook")
+            install_path="/Applications/Microsoft Outlook.app"
+            ;;
+        "google-chrome")
+            install_path="/Applications/Google Chrome.app"
+            ;;
+        "visual-studio-code")
+            install_path="/Applications/Visual Studio Code.app"
+            ;;
         *)
             install_path="/Applications/${app_name}.app"
             ;;
