@@ -199,7 +199,7 @@ if ! command -v mas &> /dev/null; then
     brew install mas
 fi
 
-mas install 497799835 #xCode
+install_mas_app "497799835" "Xcode"
 mas install 1480933944 #Vimari - Vim keybindings for Safari
 # UniFi Portal handled above with special case
 
