@@ -30,67 +30,76 @@ outer.bottom =     4
 inherit-env-vars = true
 after-startup-command = [
   'exec-and-forget sketchybar',
-  'exec-and-forget borders active_color=0xfffda1a0 inactive_color=0xff404040 width=3.0 style=round'
+  'exec-and-forget borders active_color=0xfffda1a0 inactive_color=0xff404040 width=3.0 style=round',
+  # Auto-start apps on correct workspaces with staggered delays
+  'exec-and-forget sleep 1 && open -a Finder && aerospace workspace 1',
+  'exec-and-forget sleep 2 && open -a Safari && aerospace workspace 2',
+  'exec-and-forget sleep 3 && open -a Obsidian && aerospace workspace 3',
+  'exec-and-forget sleep 4 && open -a iTerm && aerospace workspace 4',
+  'exec-and-forget sleep 5 && open -a Discord && aerospace workspace 5',
+  'exec-and-forget sleep 6 && open -a "zoom.us" && aerospace workspace 6',
+  'exec-and-forget sleep 7 && open -a "Microsoft Outlook" && aerospace workspace 7',
+  'exec-and-forget sleep 8 && open -a Figma && aerospace workspace 8'
 ]
 
 # Main mode bindings - Super (Cmd) as primary modifier like Omarchy
 [mode.main.binding]
-# === WINDOW NAVIGATION (Super + Arrow keys - like Hyprland) ===
-cmd-h = 'focus left'
-cmd-j = 'focus down'
-cmd-k = 'focus up'
-cmd-l = 'focus right'
+# === WINDOW NAVIGATION (Ctrl + Arrow keys - like Hyprland) ===
+ctrl-h = 'focus left'
+ctrl-j = 'focus down'
+ctrl-k = 'focus up'
+ctrl-l = 'focus right'
 
-# === WINDOW MOVEMENT (Super + Shift + Arrow - like Hyprland) ===
-cmd-shift-h = 'move left'
-cmd-shift-j = 'move down'
-cmd-shift-k = 'move up'
-cmd-shift-l = 'move right'
+# === WINDOW MOVEMENT (Ctrl + Shift + Arrow - like Hyprland) ===
+ctrl-shift-h = 'move left'
+ctrl-shift-j = 'move down'
+ctrl-shift-k = 'move up'
+ctrl-shift-l = 'move right'
 
 # === WINDOW CONTROL (Omarchy style) ===
-cmd-w = 'close'
-cmd-f = 'fullscreen'
-cmd-shift-f = 'layout floating tiling'
-cmd-t = 'layout floating'  # Toggle floating
+ctrl-w = 'close'
+ctrl-f = 'fullscreen'
+ctrl-shift-f = 'layout floating tiling'
+ctrl-t = 'layout floating'  # Toggle floating
 
-# === WORKSPACE NAVIGATION (Cmd + Letter for named workspaces) ===
-cmd-f = 'workspace 1'  # Finder workspace
-cmd-b = 'workspace 2'  # Browser workspace  
-cmd-n = 'workspace 3'  # Notes/Editor workspace
-cmd-t = 'workspace 4'  # Terminal workspace
-cmd-c = 'workspace 5'  # Communication workspace
-cmd-z = 'workspace 6'  # Meetings workspace
-cmd-m = 'workspace 7'  # Mail workspace
-cmd-d = 'workspace 8'  # Design workspace
-cmd-1 = 'workspace 9'  # Extra workspace 1
-cmd-2 = 'workspace 10' # Extra workspace 2
+# === WORKSPACE NAVIGATION (Ctrl + Letter for named workspaces) ===
+ctrl-f = 'workspace 1'  # Finder workspace
+ctrl-b = 'workspace 2'  # Browser workspace  
+ctrl-n = 'workspace 3'  # Notes/Editor workspace
+ctrl-t = 'workspace 4'  # Terminal workspace
+ctrl-c = 'workspace 5'  # Communication workspace
+ctrl-z = 'workspace 6'  # Meetings workspace
+ctrl-o = 'workspace 7'  # Mail workspace
+ctrl-d = 'workspace 8'  # Design workspace
+ctrl-1 = 'workspace 9'  # Extra workspace 1
+ctrl-2 = 'workspace 10' # Extra workspace 2
 
 # === NUMERIC WORKSPACE NAVIGATION (Backup) ===
-cmd-alt-1 = 'workspace 1'
-cmd-alt-2 = 'workspace 2'
-cmd-alt-3 = 'workspace 3'
-cmd-alt-4 = 'workspace 4'
-cmd-alt-5 = 'workspace 5'
-cmd-alt-6 = 'workspace 6'
-cmd-alt-7 = 'workspace 7'
-cmd-alt-8 = 'workspace 8'
-cmd-alt-9 = 'workspace 9'
-cmd-alt-0 = 'workspace 10'
+ctrl-alt-1 = 'workspace 1'
+ctrl-alt-2 = 'workspace 2'
+ctrl-alt-3 = 'workspace 3'
+ctrl-alt-4 = 'workspace 4'
+ctrl-alt-5 = 'workspace 5'
+ctrl-alt-6 = 'workspace 6'
+ctrl-alt-7 = 'workspace 7'
+ctrl-alt-8 = 'workspace 8'
+ctrl-alt-9 = 'workspace 9'
+ctrl-alt-0 = 'workspace 10'
 
 # === WORKSPACE SWITCHING ===
-cmd-tab = 'workspace-back-and-forth'  # Cmd + Tab
+ctrl-tab = 'workspace-back-and-forth'  # Ctrl + Tab
 
-# === MOVE TO WORKSPACE (Cmd + Alt + 1-9/0) ===
-cmd-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-cmd-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-cmd-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-cmd-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-cmd-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
-cmd-alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
-cmd-alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
-cmd-alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
-cmd-alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
-cmd-alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
+# === MOVE TO WORKSPACE (Ctrl + Alt + 1-9/0) ===
+ctrl-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+ctrl-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+ctrl-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+ctrl-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+ctrl-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+ctrl-alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+ctrl-alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+ctrl-alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+ctrl-alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+ctrl-alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
 # === LAYOUT MANAGEMENT (Alt for layouts like Omarchy) ===
 alt-s = ['layout v_accordion', 'mode service']
@@ -99,25 +108,21 @@ alt-e = ['layout tiles horizontal vertical', 'mode service']
 alt-w = ['layout tiles', 'mode service']
 
 # === WINDOW RESIZING ===
-cmd-minus = 'resize smart -50'
-cmd-equal = 'resize smart +50'
-cmd-shift-minus = 'resize width -50'
-cmd-shift-equal = 'resize width +50'
+ctrl-minus = 'resize smart -50'
+ctrl-equal = 'resize smart +50'
+ctrl-shift-minus = 'resize width -50'
+ctrl-shift-equal = 'resize width +50'
 
-# === APPLICATION LAUNCHER (Super + Space like Omarchy) ===
-cmd-space = 'exec-and-forget open -a Raycast'
-
-# === REMOVED APP LAUNCHING ===
-# App launching moved to Raycast with Cmd+Shift+Letter shortcuts
-# No conflicts with workspace navigation
+# === APPLICATION LAUNCHER (Ctrl + Space like Omarchy) ===
+ctrl-space = 'exec-and-forget open -a Raycast'
 
 # === SYSTEM CONTROLS ===
-cmd-ctrl-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen
-cmd-ctrl-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to restart"'  # Restart
+ctrl-alt-l = 'exec-and-forget pmset displaysleepnow'  # Lock screen
+ctrl-alt-q = 'exec-and-forget osascript -e "tell application \\"System Events\\" to restart"'  # Restart
 
 # === MONITOR CONTROLS ===
-cmd-ctrl-1 = 'move-workspace-to-monitor 1'
-cmd-ctrl-2 = 'move-workspace-to-monitor 2'
+ctrl-alt-1 = 'move-workspace-to-monitor 1'
+ctrl-alt-2 = 'move-workspace-to-monitor 2'
 
 # Service mode bindings
 [mode.service.binding]

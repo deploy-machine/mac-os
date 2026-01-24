@@ -66,54 +66,54 @@ mkdir -p "$RAYCAST_CONFIG_DIR"
 # Create Raycast configuration with predefined hotkeys
 cat > "$RAYCAST_CONFIG_FILE" << 'EOL'
 {
-  "hotkey": "option+s",
-  "hotkeyWindowSearch": "cmd+space",
+  "hotkey": "ctrl+s",
+  "hotkeyWindowSearch": "ctrl+space",
   "shortcuts": {
     "launcher": {
-      "hotkey": "option+s"
+      "hotkey": "ctrl+s"
     },
     "clipboard": {
-      "hotkey": "option+shift+c"
+      "hotkey": "ctrl+shift+c"
     },
     "snippets": {
-      "hotkey": "option+shift+s"
+      "hotkey": "ctrl+shift+s"
     },
     "calculator": {
-      "hotkey": "option+shift+=" 
+      "hotkey": "ctrl+shift+=" 
     },
     "filesearch": {
-      "hotkey": "option+shift+f"
+      "hotkey": "ctrl+shift+f"
     },
     "app-safari": {
-      "hotkey": "option+b",
+      "hotkey": "ctrl+b",
       "application": "Safari"
     },
     "app-finder": {
-      "hotkey": "option+f",
+      "hotkey": "ctrl+f",
       "application": "Finder"
     },
     "app-iterm": {
-      "hotkey": "option+t",
+      "hotkey": "ctrl+t",
       "application": "iTerm"
     },
     "app-obsidian": {
-      "hotkey": "option+n",
+      "hotkey": "ctrl+n",
       "application": "Obsidian"
     },
     "app-figma": {
-      "hotkey": "option+d",
+      "hotkey": "ctrl+d",
       "application": "Figma"
     },
     "app-discord": {
-      "hotkey": "option+c",
+      "hotkey": "ctrl+c",
       "application": "Discord"
     },
     "app-zoom": {
-      "hotkey": "option+z",
+      "hotkey": "ctrl+z",
       "application": "Zoom"
     },
     "app-outlook": {
-      "hotkey": "option+m",
+      "hotkey": "ctrl+o",
       "application": "Microsoft Outlook"
     }
   },
@@ -212,19 +212,19 @@ print_status "1. Open Raycast preferences (⌘ + ,)"
 print_status "2. Go to 'Hotkeys' section"
 print_status "3. Set these hotkeys:"
 echo
-echo "  Option + S     → Main Launcher"
-echo "  Option + B     → Safari"
-echo "  Option + F     → Finder"
-echo "  Option + T     → iTerm2"
-echo "  Option + N     → Obsidian"
-echo "  Option + D     → Figma"
-echo "  Option + C     → Discord"
-echo "  Option + Z     → Zoom"
-echo "  Option + M     → Microsoft Outlook"
-echo "  Option + Shift + C → Clipboard History" 
-echo "  Option + Shift + S → Snippets"
-echo "  Option + Shift + F → File Search"
-echo "  Option + Shift + = → Calculator"
+echo "  Ctrl + S       → Main Launcher"
+echo "  Ctrl + B       → Safari"
+echo "  Ctrl + F       → Finder"
+echo "  Ctrl + T       → iTerm2"
+echo "  Ctrl + N       → Obsidian"
+echo "  Ctrl + D       → Figma"
+echo "  Ctrl + C       → Discord"
+echo "  Ctrl + Z       → Zoom"
+echo "  Ctrl + O       → Microsoft Outlook"
+echo "  Ctrl + Shift + C → Clipboard History" 
+echo "  Ctrl + Shift + S → Snippets"
+echo "  Ctrl + Shift + F → File Search"
+echo "  Ctrl + Shift + = → Calculator"
 echo
 print_status "4. Install 'Application Shortcuts' extension from Raycast Store"
 print_status "5. Restart Raycast to apply changes"

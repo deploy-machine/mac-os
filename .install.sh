@@ -259,28 +259,16 @@ fi
 # macOS Settings
 print_status "Applying macOS defaults..."
 
-# === CLEAR CONFLICTING SYSTEM KEYBINDINGS ===
-print_status "Removing conflicting system keybindings..."
+# === SYSTEM KEYBINDING NOTES ===
+print_status "Note about system keybindings..."
+print_warning "If you experience conflicts, manually disable in System Settings:"
+echo "  • System Settings > Keyboard > Keyboard Shortcuts"
+echo "  • Disable: Spotlight (Cmd+Space), Mission Control (Cmd+F/B/etc.)"
+echo "  • Keep: Ctrl+F for system search"
+echo "  • Our shortcuts will work once AeroSpace has focus"
 
-# Spotlight (Cmd+Space) - we use it for Raycast/AeroSpace
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 -dict key 0 modifiers 0
-
-# Mission Control (Cmd+B/T/N/C/Z/M/D) - we use these for workspaces (keep Cmd+F disabled)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 32 -dict key 2 modifiers 1048576   # Cmd+F (disabled)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 -dict key 5 modifiers 1048576  # Cmd+B  
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 17 -dict key 16 modifiers 1048576 # Cmd+T
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 46 modifiers 1048576  # Cmd+N
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 11 modifiers 1048576  # Cmd+M
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 8 -dict key 2 modifiers 1048576   # Cmd+D
-
-# Keep Ctrl+F for system-wide search (Spotlight/Find)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 -dict key 3 modifiers 2560  # Ctrl+F enabled
-
-# Application windows (Cmd+`) - disable to avoid conflicts
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 27 -dict key 50 modifiers 1048576
-
-# Keyboard navigation (Cmd+Tab) - keep but disable app exposé
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 118 -dict key 34 modifiers 1310720
+# Note: System keybinding cleanup disabled due to defaults command limitations
+# Manual cleanup can be done in System Settings if needed
 
 # Dock and menu bar
 defaults write com.apple.dock autohide -bool true
@@ -386,18 +374,38 @@ else
     print_warning "JankyBorders not found, skipping service start"
 fi
 
-# Configure Raycast with our keybindings
-print_status "Configuring Raycast with custom shortcuts..."
-if [ -f "$SCRIPT_DIR/scripts/configure-raycast.sh" ]; then
-    # Only configure if Raycast config doesn't exist or if --force flag is used
-    if [ ! -f "$HOME/Library/Application Support/com.raycast.macos/raycast.json" ] || [ "$1" = "--force" ]; then
-        bash "$SCRIPT_DIR/scripts/configure-raycast.sh"
-    else
-        print_status "Raycast already configured, skipping (use --force to reconfigure)"
-    fi
-else
-    print_warning "Raycast configuration script not found"
-fi
+# Raycast Manual Configuration Required
+print_status "Raycast requires manual hotkey configuration..."
+echo
+print_warning "IMPORTANT: Raycast hotkeys must be set up manually:"
+echo
+echo "  Open Raycast → Preferences (⌘ + ,) → Hotkeys"
+echo
+echo "  CTRL + LETTER WORKSPACES:"
+echo "    Ctrl + F → Finder (Workspace 1)"
+echo "    Ctrl + B → Safari (Workspace 2)"
+echo "    Ctrl + N → Obsidian (Workspace 3)"
+echo "    Ctrl + T → iTerm2 (Workspace 4)"
+echo "    Ctrl + C → Discord (Workspace 5)"
+echo "    Ctrl + Z → Zoom (Workspace 6)"
+echo "    Ctrl + O → Outlook (Workspace 7)"
+echo "    Ctrl + D → Figma (Workspace 8)"
+echo
+echo "  CTRL + SHIFT + LETTER APP LAUNCHING:"
+echo "    Ctrl + Shift + B → Safari"
+echo "    Ctrl + Shift + F → Finder"
+echo "    Ctrl + Shift + T → iTerm2"
+echo "    Ctrl + Shift + N → Obsidian"
+echo "    Ctrl + Shift + D → Figma"
+echo "    Ctrl + Shift + C → Discord"
+echo "    Ctrl + Shift + Z → Zoom"
+echo "    Ctrl + Shift + O → Outlook"
+echo
+echo "  UTILITIES:"
+echo "    Ctrl + S → Raycast Launcher"
+echo "    Ctrl + F → System Search (when AeroSpace not focused)"
+echo
+print_status "Install 'Application Shortcuts' extension from Raycast Store for app-specific hotkeys"
 
 # Note: sketchybar and jankyborders typically run via aerospace or manual launch
 
@@ -467,10 +475,25 @@ print_success "Installation completed!"
 print_warning "Please restart your computer to apply system keybinding changes"
 print_status "Note: Configure aerospace permissions in System Settings > Privacy & Security > Accessibility"
 echo
-print_status "NEW KEYBINDING SYSTEM:"
-echo "  • Cmd + Letter: Switch to named workspace (F=Finder, B=Browser, T=Terminal, etc.)"
-echo "  • Cmd + Shift + Letter: Launch apps via Raycast"
-echo "  • Conflicting system keybindings have been disabled"
+print_status "UPDATED KEYBINDING SYSTEM:"
+echo "  • Ctrl + Letter: Switch to named workspace"
+echo "    F=Finder, B=Browser, T=Terminal, C=Communication, Z=Meetings"
+echo "    O=Mail, D=Design, N=Notes"
+echo "  • Ctrl + Shift + Letter: Launch apps via Raycast"
+echo "  • Ctrl + F: System-wide search (Spotlight/Find)"
+echo "  • Apps auto-start on correct workspaces after login"
+echo
+print_status "MULTI-MONITOR AUTO-START SETUP:"
+echo "  • Workspace 1 (Internal): Finder"
+echo "  • Workspace 2 (External 1): Safari"
+echo "  • Workspace 3 (External 2): Obsidian"
+echo "  • Workspace 4 (External 2): iTerm2"
+echo "  • Workspace 5 (External 3): Discord"
+echo "  • Workspace 6 (External 3): Zoom"
+echo "  • Workspace 7 (External 3): Outlook"
+echo "  • Workspace 8 (External 3): Figma"
+echo "  • Workspace 9 (External 1): Available"
+echo "  • Workspace 10 (Internal): Available"
 echo
 print_status "For gaming setup with DLSS support:"
 echo "  1. Download Game Porting Toolkit 3.0 from Apple Developer"
