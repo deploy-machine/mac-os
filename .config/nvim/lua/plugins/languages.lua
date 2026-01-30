@@ -8,11 +8,14 @@ return {
         "cpp",
         "css",
         "dockerfile",
+        "ecma",
         "go",
         "gomod",
         "html",
+        "html_tags",
         "javascript",
         "json",
+        "jsx",
         "lua",
         "markdown",
         "markdown_inline",
@@ -46,7 +49,7 @@ return {
     },
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         -- LSP servers
@@ -63,26 +66,23 @@ return {
         "python-lsp-server",
         "gopls",
         "rust-analyzer",
-        
+
         -- Formatters
         "prettier",
         "shfmt",
         "stylua",
         "htmlbeautifier",
-        
+
         -- Linters
         "snyk",
-        
+
         -- Tools
         "jq",
         "tree-sitter-cli",
         "gh",
-        
+
         -- Additional language tools
         "wasm-language-tools",
-        
-        -- opencode support
-        "opencode",
       },
     },
   },

@@ -3,6 +3,7 @@
 
 active_color=0xfffda1a0
 inactive_color=0xff404040
-width=3.0
+width=10.0
 style=round
 hidpi=on
+order=above

@@ -1,0 +1,57 @@
+[2026-01-23 17:39:56.947]: Info: Sunshine version: 2025.924.154138 commit: 86188d47a7463b0f73b35de18a628353adeaa20e
+[2026-01-23 17:39:56.948]: Info: Package Publisher: LizardByte
+[2026-01-23 17:39:56.948]: Info: Publisher Website: https://app.lizardbyte.dev
+[2026-01-23 17:39:56.948]: Info: Get support: https://app.lizardbyte.dev/support
+[2026-01-23 17:39:56.967]: Warning: No gamepad input is available
+[2026-01-23 17:39:56.967]: Info: // Testing for available encoders, this may generate errors. You can safely ignore those errors. //
+[2026-01-23 17:39:56.967]: Info: Trying encoder [videotoolbox]
+[2026-01-23 17:39:56.986]: Info: Detecting displays
+[2026-01-23 17:39:56.986]: Info: Detected display: Built-in Retina Display (id: 1) connected: true
+[2026-01-23 17:39:56.986]: Info: Detected display: MSI G27C4 (1) (id: 2) connected: true
+[2026-01-23 17:39:56.986]: Info: Detected display: 27GN7 (id: 6) connected: true
+[2026-01-23 17:39:56.986]: Info: Detected display: MSI G27C4 (2) (id: 7) connected: true
+[2026-01-23 17:39:56.986]: Info: Configuring selected display (1) to stream
+[2026-01-23 17:39:56.991]: Info: Creating encoder [h264_videotoolbox]
+[2026-01-23 17:39:56.991]: Info: Color coding: SDR (Rec. 601)
+[2026-01-23 17:39:56.991]: Info: Color depth: 8-bit
+[2026-01-23 17:39:56.991]: Info: Color range: JPEG
+[2026-01-23 17:39:56.993]: Info: Streaming bitrate is 1000000
+[2026-01-23 17:39:57.254]: Warning: [h264_videotoolbox @ 0x8e7164000] PrioritizeEncodingSpeedOverQuality property is not supported on this device. Ignoring.
+[2026-01-23 17:39:57.256]: Info: [h264_videotoolbox @ 0x8e7164000] This device does not support the AllowOpenGop option. Value ignored.
+[2026-01-23 17:39:57.531]: Info: Creating encoder [hevc_videotoolbox]
+[2026-01-23 17:39:57.531]: Info: Color coding: SDR (Rec. 601)
+[2026-01-23 17:39:57.531]: Info: Color depth: 8-bit
+[2026-01-23 17:39:57.531]: Info: Color range: JPEG
+[2026-01-23 17:39:57.531]: Info: Streaming bitrate is 1000000
+[2026-01-23 17:39:57.541]: Warning: [hevc_videotoolbox @ 0x8e7164000] PrioritizeEncodingSpeedOverQuality property is not supported on this device. Ignoring.
+[2026-01-23 17:39:57.542]: Info: [hevc_videotoolbox @ 0x8e7164000] This device does not support the AllowOpenGop option. Value ignored.
+[2026-01-23 17:39:57.693]: Info: Creating encoder [av1_videotoolbox]
+[2026-01-23 17:39:57.693]: Info: Color coding: SDR (Rec. 601)
+[2026-01-23 17:39:57.693]: Info: Color depth: 8-bit
+[2026-01-23 17:39:57.693]: Info: Color range: JPEG
+[2026-01-23 17:39:57.693]: Error: Couldn't open [av1_videotoolbox]
+[2026-01-23 17:39:57.697]: Info: Detecting displays
+[2026-01-23 17:39:57.698]: Info: Detected display: Built-in Retina Display (id: 1) connected: true
+[2026-01-23 17:39:57.698]: Info: Detected display: MSI G27C4 (1) (id: 2) connected: true
+[2026-01-23 17:39:57.698]: Info: Detected display: 27GN7 (id: 6) connected: true
+[2026-01-23 17:39:57.698]: Info: Detected display: MSI G27C4 (2) (id: 7) connected: true
+[2026-01-23 17:39:57.698]: Info: Configuring selected display (1) to stream
+[2026-01-23 17:39:57.698]: Info: Creating encoder [hevc_videotoolbox]
+[2026-01-23 17:39:57.698]: Info: Color coding: SDR (Rec. 709)
+[2026-01-23 17:39:57.698]: Info: Color depth: 10-bit
+[2026-01-23 17:39:57.698]: Info: Color range: JPEG
+[2026-01-23 17:39:57.698]: Info: Streaming bitrate is 1000000
+[2026-01-23 17:39:57.700]: Warning: [hevc_videotoolbox @ 0x8e7164000] PrioritizeEncodingSpeedOverQuality property is not supported on this device. Ignoring.
+[2026-01-23 17:39:57.702]: Info: [hevc_videotoolbox @ 0x8e7164000] This device does not support the AllowOpenGop option. Value ignored.
+[2026-01-23 17:39:57.851]: Info: 
+[2026-01-23 17:39:57.851]: Info: // Ignore any errors mentioned above, they are not relevant. //
+[2026-01-23 17:39:57.851]: Info: 
+[2026-01-23 17:39:57.851]: Info: Found H.264 encoder: h264_videotoolbox [videotoolbox]
+[2026-01-23 17:39:57.851]: Info: Found HEVC encoder: hevc_videotoolbox [videotoolbox]
+[2026-01-23 17:39:57.851]: Info: Starting system tray
+[2026-01-23 17:39:57.854]: Info: Configuration UI available at [https://localhost:47990]
+[2026-01-23 17:39:57.882]: Info: System tray created
+[2026-01-23 17:39:57.882]: Info: Starting main loop
+[2026-01-23 17:39:58.577]: Info: Successfully registered DNS service.
+[2026-01-23 23:40:48.731]: Info: Terminate handler called
+[2026-01-23 23:40:48.742]: Info: Shutdown event detected, breaking main loop

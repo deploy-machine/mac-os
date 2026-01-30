@@ -9,6 +9,122 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+CWD=$(pwd)
+
+# Function to install Mac App Store apps with error handling
+install_mas_app() {
+    local app_id="$1"
+    local app_name="$2"
+    
+    # Check if signed in to App Store
+    if ! mas account > /dev/null 2>&1; then
+        print_warning "Not signed in to App Store. Please sign in and try again."
+        print_status "You can sign in with: mas signin <apple_id>"
+        return 1
+    fi
+    
+    # Check if app is already installed
+    if mas list | grep -q "$app_id"; then
+        print_success "$app_name already installed, skipping..."
+        return 0
+    fi
+    
+    # Check if app is available in current region
+    print_status "Checking availability of $app_name..."
+    if ! mas info "$app_id" > /dev/null 2>&1; then
+        print_warning "$app_name (ID: $app_id) not available in your region's App Store"
+        print_status "Please install manually from the App Store"
+        return 0
+    fi
+    
+    print_status "Installing $app_name..."
+    if mas install "$app_id"; then
+        print_success "$app_name installed successfully"
+    else
+        print_error "Failed to install $app_name"
+        print_status "Please install manually from the App Store"
+        return 1
+    fi
+}
+
+# Function to install cask with error handling
+install_cask() {
+    local cask_name="$1"
+    local app_name="$2"
+    
+    # Check if this is a font cask and if the font already exists
+    if [[ "$cask_name" =~ ^font- ]]; then
+        font_name=$(echo "$cask_name" | sed 's/^font-//' | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2))}1')
+        # Try to find the font file in common formats
+        for font_ext in ttf otf ttc; do
+            font_file=$(find "$HOME/Library/Fonts" -name "*${font_name}*.${font_ext}" 2>/dev/null | head -n 1)
+            if [ -n "$font_file" ]; then
+                print_success "$app_name already installed, skipping..."
+                return 0
+            fi
+        done
+    fi
+    
+    # Special case mapping for apps that install with different names
+    case "$cask_name" in
+        "iterm2")
+            install_path="/Applications/iTerm.app"
+            ;;
+        "microsoft-office")
+            # Check for any Office app
+            if [ -d "/Applications/Microsoft Word.app" ] || [ -d "/Applications/Microsoft Excel.app" ] || [ -d "/Applications/Microsoft PowerPoint.app" ]; then
+                print_success "Microsoft Office already installed, skipping..."
+                return 0
+            fi
+            ;;
+        "league-of-legends")
+            install_path="/Applications/League of Legends.app"
+            ;;
+        "dbeaver-community")
+            install_path="/Applications/DBeaver.app"
+            ;;
+        "bitwarden")
+            install_path="/Applications/Bitwarden.app"
+            ;;
+        "android-studio")
+            install_path="/Applications/Android Studio.app"
+            ;;
+        "microsoft-outlook")
+            install_path="/Applications/Microsoft Outlook.app"
+            ;;
+        "google-chrome")
+            install_path="/Applications/Google Chrome.app"
+            ;;
+        "visual-studio-code")
+            install_path="/Applications/Visual Studio Code.app"
+            ;;
+        "font-sketchybar-app-font")
+            # Check if font already exists in Library/Fonts
+            if [ -f "$HOME/Library/Fonts/sketchybar-app-font.ttf" ]; then
+                print_success "sketchybar-app-font already installed, skipping..."
+                return 0
+            fi
+            install_path="/Applications/${app_name}.app"
+            ;;
+        *)
+            install_path="/Applications/${app_name}.app"
+            ;;
+    esac
+    
+    if [ -d "$install_path" ]; then
+        print_success "$app_name already installed, skipping..."
+        return 0
+    fi
+    
+    print_status "Installing $app_name..."
+    if brew install --cask "$cask_name"; then
+        print_success "$app_name installed successfully"
+    else
+        print_error "Failed to install $app_name"
+        return 1
+    fi
+}
+
 # Function to print colored output
 print_status() {
     echo -e "${BLUE}[INFO]${NC} $1"
@@ -65,27 +181,62 @@ print_status "Adding Homebrew taps..."
 brew tap FelixKratz/formulae
 brew tap koekeishiya/formulae
 brew tap nikitabobko/tap
+brew tap joncrangle/tap
+
 
 # Install core packages
 print_status "Installing core packages..."
 brew install \
+    switchaudio-osx \
+    media-control \
+    imagemagick \
     wget \
     jq \
     ripgrep \
     git \
     gh \
-    starship \
+    lsd \
+    bat \
     zsh \
     zsh-autosuggestions \
-    zsh-fast-syntax-highlighting \
+    zsh-syntax-highlighting \
     zoxide
 
 # Install window management tools
 print_status "Installing window management tools..."
 brew install nikitabobko/tap/aerospace
-brew install sketchybar
 brew install borders
-brew install --cask raycast
+install_cask "raycast" "Raycast"
+
+# Sketchybar
+brew install lua
+brew install switchaudio-osx
+brew install nowplaying-cli
+
+brew install sketchybar
+
+# Fonts
+install_cask "sf-symbols" "font-sf-symbols"
+install_cask "font-sf-mono" "font-sf-mono"
+install_cask "font-sf-pro" "font-sf-pro"
+
+curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.28/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+
+# SbarLua
+if [ -d "/tmp/sbarlua" ]; then
+    print_status "SbarLua directory already exists, removing and re-cloning..."
+    rm -rf /tmp/sbarlua
+fi
+(git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
+
+if [ -d "/tmp/dotfiles" ]; then
+  rm -rf /tmp/dotfiles
+fi
+git clone https://github.com/FelixKratz/dotfiles.git /tmp/dotfiles
+rm -rf $HOME/.config/sketchybar
+mv /tmp/dotfiles/.config/sketchybar $HOME/.config/sketchybar
+rm -rf /tmp/dotfiles
+brew services restart sketchybar
 
 # Install development tools
 print_status "Installing development tools..."
@@ -99,98 +250,6 @@ brew install \
 # Install useful apps
 print_status "Installing applications..."
 
-# Function to install Mac App Store apps with error handling
-install_mas_app() {
-    local app_id="$1"
-    local app_name="$2"
-    
-    # Check if signed in to App Store
-    if ! mas account > /dev/null 2>&1; then
-        print_warning "Not signed in to App Store. Please sign in and try again."
-        print_status "You can sign in with: mas signin <apple_id>"
-        return 1
-    fi
-    
-    # Check if app is already installed
-    if mas list | grep -q "$app_id"; then
-        print_success "$app_name already installed, skipping..."
-        return 0
-    fi
-    
-    # Check if app is available in current region
-    print_status "Checking availability of $app_name..."
-    if ! mas info "$app_id" > /dev/null 2>&1; then
-        print_warning "$app_name (ID: $app_id) not available in your region's App Store"
-        print_status "Please install manually from the App Store"
-        return 0
-    fi
-    
-    print_status "Installing $app_name..."
-    if mas install "$app_id"; then
-        print_success "$app_name installed successfully"
-    else
-        print_error "Failed to install $app_name"
-        print_status "Please install manually from the App Store"
-        return 1
-    fi
-}
-
-# Function to install cask with error handling
-install_cask() {
-    local cask_name="$1"
-    local app_name="$2"
-    
-    # Special case mapping for apps that install with different names
-    case "$cask_name" in
-        "iterm2")
-            install_path="/Applications/iTerm.app"
-            ;;
-        "microsoft-office")
-            # Check for any Office app
-            if [ -d "/Applications/Microsoft Word.app" ] || [ -d "/Applications/Microsoft Excel.app" ] || [ -d "/Applications/Microsoft PowerPoint.app" ]; then
-                print_success "Microsoft Office already installed, skipping..."
-                return 0
-            fi
-            ;;
-        "league-of-legends")
-            install_path="/Applications/League of Legends.app"
-            ;;
-        "dbeaver-community")
-            install_path="/Applications/DBeaver.app"
-            ;;
-        "bitwarden")
-            install_path="/Applications/Bitwarden.app"
-            ;;
-        "android-studio")
-            install_path="/Applications/Android Studio.app"
-            ;;
-        "microsoft-outlook")
-            install_path="/Applications/Microsoft Outlook.app"
-            ;;
-        "google-chrome")
-            install_path="/Applications/Google Chrome.app"
-            ;;
-        "visual-studio-code")
-            install_path="/Applications/Visual Studio Code.app"
-            ;;
-        *)
-            install_path="/Applications/${app_name}.app"
-            ;;
-    esac
-    
-    if [ -d "$install_path" ]; then
-        print_success "$app_name already installed, skipping..."
-        return 0
-    fi
-    
-    print_status "Installing $app_name..."
-    if brew install --cask "$cask_name"; then
-        print_success "$app_name installed successfully"
-    else
-        print_error "Failed to install $app_name"
-        return 1
-    fi
-}
 
 # Install each app with error handling
 install_cask "iterm2" "iTerm2"
@@ -254,6 +313,23 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 else
     print_success "Oh My Zsh already installed"
+fi
+
+# Setup zsh-syntax-highlighting plugin for Oh My Zsh
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+    print_status "Linking zsh-syntax-highlighting to Oh My Zsh plugins..."
+    ln -sf "/opt/homebrew/share/zsh-syntax-highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+else
+    print_success "zsh-syntax-highlighting already linked"
+fi
+
+# Setup spaceship prompt
+if [ ! -d "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" ]; then
+    print_status "Installing Spaceship prompt..."
+    git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" --depth=1
+    ln -sf "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+else
+    print_success "Spaceship prompt already installed"
 fi
 
 # macOS Settings
@@ -340,12 +416,22 @@ create_symlink() {
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Create symlinks for configs
-create_symlink "$SCRIPT_DIR/.config/zsh/.zshrc" "$HOME/.zshrc"
-create_symlink "$SCRIPT_DIR/.config/starship.toml" "$HOME/.config/starship.toml"
-create_symlink "$SCRIPT_DIR/.config/aerospace" "$HOME/.config/aerospace"
-create_symlink "$SCRIPT_DIR/.config/sketchybar" "$HOME/.config/sketchybar"
-create_symlink "$SCRIPT_DIR/.config/jankyborders" "$HOME/.config/jankyborders"
+# Create symlinks for configurations
+print_status "Setting up configuration files..."
+
+# Backup existing .zshrc if it exists
+if [ -f "$HOME/.zshrc" ]; then
+    print_status "Backing up existing .zshrc..."
+    cp "$HOME/.zshrc" "$HOME/.zshrc.backup.$(date +%Y%m%d_%H%M%S)"
+fi
+
+print_status "Copying zsh configuration..."
+if [ -f "$SCRIPT_DIR/.config/zsh/.zshrc" ]; then
+    cp "$SCRIPT_DIR/.config/zsh/.zshrc" "$HOME/.zshrc" || print_warning "Failed to copy .zshrc, continuing..."
+fi
+
+print_status "Copying other configuration files..."
+cp -Rf "$SCRIPT_DIR/.config/"* "$HOME/.config/" || print_warning "Some config files may not have copied properly"
 
 # Start services
 print_status "Starting services..."
@@ -440,9 +526,6 @@ cp -r "$SCRIPT_DIR/.config/nvim/"* "$HOME/.config/nvim/"
 # Install theme extras
 cd ~/.local/share/milkoutside.nvim
 ./extras/install.sh --all
-
-print_status "Installing sketchybar font..."
-curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.28/sketchybar-app-font.ttf -o ~/Library/Fonts/sketchybar-app-font.ttf
 
 # Setup mise
 print_status "Setting up mise..."
